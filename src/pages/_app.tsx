@@ -3,7 +3,7 @@ import "@/modules/styles/global.scss";
 import { Layout } from "@/modules/ui/Layout/Layout";
 import { AuthProvider } from "@/modules/auth";
 import { ProductProvider } from "@/modules/products";
-import { OrderProvider, SaleEventProvider } from "@/modules/orders";
+import { OrderProvider, BudgetProvider } from "@/modules/orders";
 import { ConfirmProvider } from "material-ui-confirm";
 import { ClientProvider } from "@/modules/clients";
 import { DriverProvider } from "@/modules/drivers";
@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <ProductProvider>
-        <SaleEventProvider>
+        <BudgetProvider>
           <OrderProvider>
             <DeliveryProvider>
               <ClientProvider>
@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
               </ClientProvider>
             </DeliveryProvider>
           </OrderProvider>
-        </SaleEventProvider>
+        </BudgetProvider>
       </ProductProvider>
     </AuthProvider>
   );

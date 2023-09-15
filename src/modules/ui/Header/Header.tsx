@@ -67,12 +67,12 @@ const GuestLinks = () => {
 const LoggedLinks = () => {
   return (
     <>
-      <NavLink Icon={HomeIcon} link="/" text="Pedidos" />
+      <NavLink Icon={HomeIcon} link="/" text="Gastos" />
       {/* <NavLink Icon={DashboardIcon} link="/deliveries" text="Entregas" /> */}
-      <NavLink Icon={DashboardIcon} link="/products" text="Produtos" />
+      {/* <NavLink Icon={DashboardIcon} link="/products" text="Produtos" />
       <NavLink Icon={DashboardIcon} link="/clients" text="Clientes" />
-      <NavLink Icon={DashboardIcon} link="/drivers" text="Motoristas" />
-      <NavLink Icon={DashboardIcon} link="/sale-events" text="Eventos" />
+      <NavLink Icon={DashboardIcon} link="/drivers" text="Motoristas" /> */}
+      <NavLink Icon={DashboardIcon} link="/budgets" text="Orçamentos" />
 
       <LogOutOption />
     </>

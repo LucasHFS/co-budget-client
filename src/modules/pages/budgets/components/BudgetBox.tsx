@@ -3,31 +3,22 @@ import { useState } from "react";
 import { Formik } from "formik";
 import { useConfirm } from "material-ui-confirm";
 
-import { useSaleEvent } from "@/modules/orders";
+import { useBudget } from "@/modules/orders";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
-import styles from "./SaleEventBox.module.scss";
-import { formatDate, parseDate, ptBrToDDMMYYY } from "@/modules/utils/date";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import moment from "moment";
+import styles from "./BudgetBox.module.scss";
+import Link from "next/link";
 
-export const SaleEventBox = ({saleEvent}: any) => {
+export const BudgetBox = ({budget}: any) => {
   const [open, setOpen] = useState(false);
-  const { updateSaleEvent, deleteSaleEvent, errors: requestErrors, setErrors } = useSaleEvent()
-  const [date, setDate] = useState(() => {
-    parseDate(saleEvent.date)
-  });
+  const { updateBudget, deleteBudget, errors: requestErrors, setErrors } = useBudget()
 
-  //@ts-ignore
-  const modifiedValue = moment(moment(date,"DD/MM/YYYY"),"MM-DD-YYYY");
 
   const confirm = useConfirm();
 
   const handleExclude = async (id: number) => {
-    confirm({ title: 'Tem certeza?', description: 'Essa ação excluira o Evento', titleProps: { color: 'black'}})
+    confirm({ title: 'Tem certeza?', description: 'Essa ação excluira o Orçamento', titleProps: { color: 'black'}})
       .then(async()=>{
-        const success = await deleteSaleEvent({id});
+        const success = await deleteBudget({id});
 
         if(success){
           handleClose()
@@ -39,24 +30,18 @@ export const SaleEventBox = ({saleEvent}: any) => {
   }
 
   const handleClickOpen = () => {
-    const utcDate = (new Date(saleEvent.date)).toLocaleDateString('pt-BR', {timeZone: 'UTC'})
-  //@ts-ignore
-    setDate(utcDate)
-
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
     setErrors([])
-  //@ts-ignore
-    setDate('')
   };
 
   //@ts-ignore
   const handleUpdate = async (values, { setSubmitting }) => {
     const {id, name } = values
-    const success = await updateSaleEvent({id, name, date: date });
+    const success = await updateBudget({id, name });
     if(success){
       handleClose()
     }
@@ -66,17 +51,22 @@ export const SaleEventBox = ({saleEvent}: any) => {
 
   return (
     <>
-      <div className={styles.box} onClick={handleClickOpen}>
-        <div className={styles.title}>#{saleEvent.id}</div>
-        <div className={styles.title}>{saleEvent.name}</div>
-        <div className={styles.title}>{formatDate(saleEvent.date)}</div>
+      <div className={styles.box}>
+        <div className={styles.title}>#{budget.id}</div>
+        <div className={styles.title}>{budget.name}</div>
+        <div className={styles.title}>
+          <Link className={styles.title} href={`/budgets/${budget.id}`}>Expenses</Link>
+          <br/>
+          <br/>
+          <span onClick={handleClickOpen}>edit</span>
+        </div>
       </div>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle color="black">Atualizar Evento (#{saleEvent.id})</DialogTitle>
+        <DialogTitle color="black">Atualizar Orçamento (#{budget.id})</DialogTitle>
         <DialogContent className={styles.dialog_content}>
           <Formik
-            initialValues={{ id: saleEvent.id, name: saleEvent.name, date: saleEvent.date }}
+            initialValues={{ id: budget.id, name: budget.name }}
             onSubmit={handleUpdate}
           >
             {({
@@ -96,19 +86,6 @@ export const SaleEventBox = ({saleEvent}: any) => {
                   autoFocus
                   margin="dense"
                 />
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label="Data"
-                    value={modifiedValue}
-                    onChange={(newValue) => {
-  //@ts-ignore
-                      setDate(newValue?.format("DD/MM/YYYY"));
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                    mask="__/__/____"
-                    inputFormat="DD/MM/YYYY"
-                  />
-                </LocalizationProvider>
                 {requestErrors && <ErrorMessage messages={requestErrors} />}
 
                 <DialogActions style={{display: "flex", flexDirection: 'column', gap: '5px'}}>

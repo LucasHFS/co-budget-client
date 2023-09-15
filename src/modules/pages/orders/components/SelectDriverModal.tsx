@@ -20,9 +20,9 @@ export const SelectDriverModal = ({open, onClose, setDriverId, driverId,handleSe
           <Select
             labelId={`driver-label`}
             name={`driver`}
-            id={`saleEvent`}
+            id={`budget`}
             value={driverId}
-            label="Evento"
+            label="Orçamento"
             required
             onChange={(e) => {
               setDriverId(e.target.value);

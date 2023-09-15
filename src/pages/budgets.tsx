@@ -1,8 +1,8 @@
 import { withSSRAuth } from "@/modules/auth/middlewares/withSSRAuth";
-import { SaleEventsPage } from "@/modules/pages/sale_events/SaleEventsPage";
+import { BudgetsPage } from "@/modules/pages/budgets/BudgetsPage";
 
 const Page = () => {
-  return <SaleEventsPage />;
+  return <BudgetsPage />;
 };
 
 export default Page;

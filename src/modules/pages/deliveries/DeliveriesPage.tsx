@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { DeliveriesByState } from "./components/DeliveriesByState";
 import Router from 'next/router'
 import { WarnModal } from "../orders/components/WarnModal";
-import { SaleEventSelect } from "../orders/components/SaleEventSelect";
+import { BudgetSelect } from "../orders/components/BudgetSelect";
 
 export const DeliveriesPage = () => {
   const { deliveriesByState, setErrors } = useDelivery()
@@ -17,7 +17,7 @@ export const DeliveriesPage = () => {
 
   const handleAction = () => {
     setOpenWarn(false)
-    Router.push('/sale-events')
+    Router.push('/budgets')
   }
 
   return (
@@ -26,16 +26,16 @@ export const DeliveriesPage = () => {
         <title>Marmitex - Deliveries</title>
       </Head>
 
-      <SaleEventSelect />
+      <BudgetSelect />
       <div className={styles.content}>
         <WarnModal
           open={openWarn}
-          title="Selecione um evento"
-          body="Para gerenciar os pedidos, selecione ou crie um evento de venda antes."
+          title="Selecione um orçamento"
+          body="Para gerenciar os pedidos, selecione ou crie um orçamento de venda antes."
           handleClose={() => {
             setOpenWarn(false)
           }}
-          action={{text: 'Criar Evento', handle: handleAction}}
+          action={{text: 'Criar Orçamento', handle: handleAction}}
         />
 
         <DeliveriesByState deliveriesByState={deliveriesByState}/>

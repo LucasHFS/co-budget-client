@@ -11,7 +11,7 @@ import { formatedErrorsArray } from "@/modules/utils/request";
 import { Order } from "../../domain/Order";
 import { Client } from "@/modules/clients/domain/Client";
 import { Product } from "@/modules/products/domain/Product";
-import { useSaleEvent } from "../hooks/useSaleEvent";
+import { useBudget } from "../hooks/useBudget";
 import { useAuth } from "@/modules/auth";
 
 
@@ -54,13 +54,13 @@ export const OrderProvider = ({ children }: OrderContextProviderProps) => {
   const [errors, setErrors] = useState([]);
   const {isAuthenticated} = useAuth()
 
-  const { selectedSaleEventId } = useSaleEvent()
+  const { selectedBudgetId } = useBudget()
 
   const fetchOrdersByState = useCallback(
     () => {
       api
         .get("/orders/by_state", {params: {
-          saleEventId: selectedSaleEventId
+          budgetId: selectedBudgetId
         }})
         .then((response) => {
           const data = response.data.orders_by_state
@@ -80,7 +80,7 @@ export const OrderProvider = ({ children }: OrderContextProviderProps) => {
         .finally(() => {
           setisLoading(false);
         });
-    },[selectedSaleEventId])
+    },[selectedBudgetId])
 
 
   const refetchOrders = useCallback(() => {
@@ -107,7 +107,7 @@ export const OrderProvider = ({ children }: OrderContextProviderProps) => {
             order: {
               client,
               products,
-              saleEventId: selectedSaleEventId,
+              budgetId: selectedBudgetId,
               isDelivery,
               notes,
             },
@@ -124,7 +124,7 @@ export const OrderProvider = ({ children }: OrderContextProviderProps) => {
           return false
         }
         setisLoading(false);
-      }, [selectedSaleEventId, refetchOrders])
+      }, [selectedBudgetId, refetchOrders])
 
   const updateOrder = useCallback(
     async ({ id, client, products, isDelivery, notes }: {id:number, client:Client, products:Product[],isDelivery: boolean, notes:string}) =>  {

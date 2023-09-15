@@ -12,7 +12,7 @@ import { Delivery } from "../../domain/Delivery";
 import { Client } from "@/modules/clients/domain/Client";
 import { Product } from "@/modules/products/domain/Product";
 import { useAuth } from "@/modules/auth";
-import { useSaleEvent } from "@/modules/orders";
+import { useBudget } from "@/modules/orders";
 
 
 type DeliveryProviderValue = {
@@ -51,13 +51,13 @@ export const DeliveryProvider = ({ children }: DeliveryContextProviderProps) => 
   const [errors, setErrors] = useState([]);
   const {isAuthenticated} = useAuth()
 
-  const { selectedSaleEventId } = useSaleEvent()
+  const { selectedBudgetId } = useBudget()
 
   const fetchDeliveriesByState = useCallback(
     () => {
       api
         .get("/deliveries", {params: {
-          saleEventId: selectedSaleEventId
+          budgetId: selectedBudgetId
         }})
         .then((response) => {
           const data = response.data.deliveries_by_state
@@ -76,7 +76,7 @@ export const DeliveryProvider = ({ children }: DeliveryContextProviderProps) => 
         .finally(() => {
           setisLoading(false);
         });
-    },[selectedSaleEventId])
+    },[selectedBudgetId])
 
 
   const refetchDeliveries = useCallback(() => {

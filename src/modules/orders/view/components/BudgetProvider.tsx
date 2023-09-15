@@ -8,23 +8,23 @@ import {
 } from "react";
 import { api } from "@/modules/infra/services/apiClient";
 import { formatedErrorsArray } from "@/modules/utils/request";
-import { SaleEvent } from "@/modules/orders/domain/SaleEvent";
+import { Budget } from "@/modules/orders/domain/Budget";
 import { useAuth } from "@/modules/auth";
 
-type SaleEventProviderValue = {
-  createSaleEvent: any
-  updateSaleEvent: any
-  deleteSaleEvent: any
-  saleEvents: SaleEvent[]
-  setSaleEvents: any
-  selectedSaleEventId: SaleEvent
-  setselectedSaleEventId: any
+type BudgetProviderValue = {
+  createBudget: any
+  updateBudget: any
+  deleteBudget: any
+  budgets: Budget[]
+  setBudgets: any
+  selectedBudgetId: Budget
+  setselectedBudgetId: any
   isLoading: boolean
   errors: string[]
   setErrors: any
 };
 
-export const SaleEventContext = createContext<SaleEventProviderValue | undefined>(
+export const BudgetContext = createContext<BudgetProviderValue | undefined>(
   undefined
 );
 
@@ -32,12 +32,12 @@ type OrderContextProviderProps = {
   children: ReactNode;
 };
 
-export const SaleEventProvider = ({ children }: OrderContextProviderProps) => {
-  const [saleEvents, setSaleEvents] = useState<SaleEvent[]>([])
+export const BudgetProvider = ({ children }: OrderContextProviderProps) => {
+  const [budgets, setBudgets] = useState<Budget[]>([])
   //@ts-ignore
-  const [selectedSaleEventId, setselectedSaleEventId] = useState<SaleEvent | undefined>(() => {
+  const [selectedBudgetId, setselectedBudgetId] = useState<Budget | undefined>(() => {
     if (typeof window !== 'undefined') {
-      const storedValue = localStorage.getItem('selectedSaleEventId');
+      const storedValue = localStorage.getItem('selectedBudgetId');
       return storedValue;
     }
   })
@@ -48,36 +48,36 @@ export const SaleEventProvider = ({ children }: OrderContextProviderProps) => {
 
   useEffect(() => {
     try {
-      if(selectedSaleEventId){
+      if(selectedBudgetId){
         //@ts-ignore
-        localStorage.setItem('selectedSaleEventId', selectedSaleEventId);
+        localStorage.setItem('selectedBudgetId', selectedBudgetId);
       }
     } catch (error) {
       console.log(error);
     }
-  }, [selectedSaleEventId]);
+  }, [selectedBudgetId]);
 
-  const createSaleEvent = useCallback(
-    async ({ name, date }: SaleEvent) =>  {
+  const createBudget = useCallback(
+    async ({ name, date }: Budget) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.post("/sale_events", {
-            sale_event: {
+          const response = await api.post("/budgets", {
+            budget: {
               name,
               date,
             },
           });
 
           if (response.status === 201) {
-            const saleEvent = response.data.saleEvent
+            const budget = response.data.budget
             //@ts-ignore
-            setSaleEvents(prevSaleEvents => [
-              ...prevSaleEvents,
+            setBudgets(prevBudgets => [
+              ...prevBudgets,
               {
-                id: saleEvent.id,
-                name: saleEvent.name,
-                date: saleEvent.date,
+                id: budget.id,
+                name: budget.name,
+                date: budget.date,
               }
             ]);
             return true
@@ -90,31 +90,31 @@ export const SaleEventProvider = ({ children }: OrderContextProviderProps) => {
         setisLoading(false);
     }, [])
 
-  const updateSaleEvent = useCallback(
-    async ({ id, name, date }: SaleEvent) =>  {
+  const updateBudget = useCallback(
+    async ({ id, name, date }: Budget) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.put(`/sale_events/${id}`, {
-            sale_event: {
+          const response = await api.put(`/budgets/${id}`, {
+            budget: {
               name,
               date,
             },
           });
 
           if (response.status === 200) {
-            const saleEvent = response.data.saleEvent
+            const budget = response.data.budget
 
-            setSaleEvents(prevSaleEvents => {
-              return prevSaleEvents.map((saleEv)=>{
-                if(saleEv.id === saleEvent.id){
+            setBudgets(prevBudgets => {
+              return prevBudgets.map((budg)=>{
+                if(budg.id === budget.id){
                   return {
-                    id: saleEvent.id,
-                    name: saleEvent.name,
-                    date: saleEvent.date,
+                    id: budget.id,
+                    name: budget.name,
+                    date: budget.date,
                   }
                 } else {
-                  return saleEv;
+                  return budg;
                 }
               })
             });
@@ -128,16 +128,16 @@ export const SaleEventProvider = ({ children }: OrderContextProviderProps) => {
         setisLoading(false);
   }, [])
 
-  const deleteSaleEvent = useCallback(
+  const deleteBudget = useCallback(
     async ({ id }: {id: number}) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.delete(`/sale_events/${id}`);
+          const response = await api.delete(`/budgets/${id}`);
 
           if (response.status === 204) {
-            const saleEventsWithoutDeleted = saleEvents.filter((saleEvent)=> id !== saleEvent.id)
-            setSaleEvents(saleEventsWithoutDeleted)
+            const budgetsWithoutDeleted = budgets.filter((budget)=> id !== budget.id)
+            setBudgets(budgetsWithoutDeleted)
 
             return true
           }
@@ -147,7 +147,7 @@ export const SaleEventProvider = ({ children }: OrderContextProviderProps) => {
           return false
         }
         setisLoading(false);
-  }, [saleEvents])
+  }, [budgets])
 
 
   useEffect(() => {
@@ -156,9 +156,9 @@ export const SaleEventProvider = ({ children }: OrderContextProviderProps) => {
     }
     setisLoading(true);
     api
-      .get("/sale_events")
+      .get("/budgets")
       .then((response) => {
-        setSaleEvents(response.data.sale_events);
+        setBudgets(response.data.budgets);
       })
       .catch((err) => {
           //@ts-ignore
@@ -172,25 +172,25 @@ export const SaleEventProvider = ({ children }: OrderContextProviderProps) => {
 
   const value = useMemo(
     () => ({
-      createSaleEvent,
-      updateSaleEvent,
-      deleteSaleEvent,
-      saleEvents,
-      setSaleEvents,
-      selectedSaleEventId,
-      setselectedSaleEventId,
+      createBudget,
+      updateBudget,
+      deleteBudget,
+      budgets,
+      setBudgets,
+      selectedBudgetId,
+      setselectedBudgetId,
       isLoading,
       errors,
       setErrors,
     }),
     [
-      createSaleEvent,
-      updateSaleEvent,
-      deleteSaleEvent,
-      saleEvents,
-      setSaleEvents,
-      selectedSaleEventId,
-      setselectedSaleEventId,
+      createBudget,
+      updateBudget,
+      deleteBudget,
+      budgets,
+      setBudgets,
+      selectedBudgetId,
+      setselectedBudgetId,
       isLoading,
       errors,
       setErrors,
@@ -199,6 +199,6 @@ export const SaleEventProvider = ({ children }: OrderContextProviderProps) => {
 
   return (
     //@ts-ignore
-    <SaleEventContext.Provider value={value}>{children}</SaleEventContext.Provider>
+    <BudgetContext.Provider value={value}>{children}</BudgetContext.Provider>
   );
 };
