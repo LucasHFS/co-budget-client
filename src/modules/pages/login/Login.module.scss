@@ -1,0 +1,21 @@
+@import "../../styles/breakpoints.scss";
+
+.content * {
+  color: var(--text-primary);
+}
+
+.container {
+  padding: 12px;
+
+  @include min-desktop {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    width: 80%;
+    max-width: 800px;
+    padding: 12px;
+  }
+}
+

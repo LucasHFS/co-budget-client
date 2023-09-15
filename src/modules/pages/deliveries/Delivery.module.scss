@@ -1,0 +1,71 @@
+@import "../../styles/breakpoints.scss";
+
+.content * {
+  color: var(--text-primary);
+}
+
+.container {
+  padding: 12px;
+
+  @include min-desktop {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    width: 80%;
+    max-width: 800px;
+    padding: 12px;
+  }
+}
+
+.floating_button {
+	position:fixed !important;
+	bottom:40px;
+	right:40px;
+}
+
+.form {
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.menuItem {
+  color: black;
+}
+
+.dynamicFields {
+  gap: 15px;
+}
+
+.productRow {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+
+.eventSelectContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  margin: 15px auto;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.title {
+  text-align: center;
+  color: var(--text-primary);
+  margin: 15px 0;
+}
+
+.danger {
+  color: #c62828;
+}

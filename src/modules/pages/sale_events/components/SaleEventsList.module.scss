@@ -1,0 +1,23 @@
+@import "../../../styles/breakpoints.scss";
+
+.container {
+  display: grid;
+  width: 100%;
+  grid-gap: 15px;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1200px;
+  margin-top: 15px;
+
+  @include min-desktop {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
+    padding: 15px;
+  }
+
+}
+
+.title {
+  text-align: center;
+  margin-top: 20px;
+}

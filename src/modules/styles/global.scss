@@ -1,0 +1,20 @@
+@import "./theme.scss";
+@import "./z-index.scss";
+@import "./fonts.scss";
+@import "./breakpoints.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Condensed";
+  // color: var(--text-primary);
+  letter-spacing: var(--display-letter-spacing);
+  position: relative;
+}
+
+html,
+body {
+  min-height: 100vh;
+  height: 100%;
+}
