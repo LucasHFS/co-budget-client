@@ -23,6 +23,10 @@ type ExpenseProviderValue = {
   refetchExpenses: any
   selectedMonthDate: any,
   setSelectedMonthDate: any,
+  payExpense: any,
+  unpayExpense: any,
+  calculateTotalPayable: any
+  calculateBalanceToPay: any
   isLoading: boolean
   errors: string[]
   setErrors: any
@@ -158,6 +162,56 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
         setisLoading(false);
   }, [refetchExpenses])
 
+  const payExpense = useCallback(
+    async (id: number) =>  {
+      try {
+          setisLoading(true);
+
+          const response = await api.put(`/expenses/${id}/pay`, {});
+
+          if (response.status === 200) {
+            return true
+          }
+        } catch (err) {
+          //@ts-ignore
+          setErrors(formatedErrorsArray(err));
+          return false
+        }
+        setisLoading(false);
+  },[])
+
+  const unpayExpense = useCallback(
+    async (id: number) =>  {
+      try {
+          setisLoading(true);
+
+          const response = await api.put(`/expenses/${id}/unpay`, {});
+
+          if (response.status === 200) {
+            return true
+          }
+        } catch (err) {
+          //@ts-ignore
+          setErrors(formatedErrorsArray(err));
+          return false
+        }
+        setisLoading(false);
+  },[])
+
+  const calculateTotalPayable = useCallback(() =>
+    expenses.reduce((acc, expense) => (acc + expense.price), 0)
+  , [expenses])
+
+  const calculateBalanceToPay = useCallback(() =>
+    expenses.reduce((acc, expense) => {
+        if(expense.status === 'Pago'){
+          return acc
+        } else {
+          return acc + expense.price
+        }
+      },0)
+    ,[expenses])
+
   const value = useMemo(
     () => ({
       expenses,
@@ -168,6 +222,10 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
       deleteExpense,
       selectedMonthDate,
       setSelectedMonthDate,
+      payExpense,
+      unpayExpense,
+      calculateTotalPayable,
+      calculateBalanceToPay,
       isLoading,
       errors,
       setErrors,
@@ -181,6 +239,10 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
       deleteExpense,
       selectedMonthDate,
       setSelectedMonthDate,
+      payExpense,
+      unpayExpense,
+      calculateTotalPayable,
+      calculateBalanceToPay,
       isLoading,
       errors,
       setErrors,

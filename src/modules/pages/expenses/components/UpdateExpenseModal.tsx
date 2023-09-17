@@ -15,18 +15,12 @@ import moment from "moment";
 import { parseDate } from "@/modules/utils/date";
 
 export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
-  const { updateExpense, errors: requestErrors } = useExpense()
+  const { updateExpense, errors: requestErrors, payExpense, unpayExpense, refetchExpenses } = useExpense()
   const [price, setPrice] = useState(expense.price)
   const [dueAt, setDueAt] = useState(() => parseDate(expense.dueAt));
 
   //@ts-ignore
   const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
-
-  const expenseKinds = {
-    once: 'Única',
-    fixed: 'Fixa',
-    installment: 'Parcelas'
-  }
 
   //@ts-ignore
   const handleUpdate = async (values, { setSubmitting }) => {
@@ -46,6 +40,18 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
     setSubmitting(false);
   }
 
+  const handlePayExpense = (id: number) => {
+    payExpense(id)
+    refetchExpenses()
+    handleClose()
+  };
+
+  const handleUnpayExpense = (id: number) => {
+    unpayExpense(id)
+    refetchExpenses()
+    handleClose()
+  };
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle color="black">Atualizar Despesa</DialogTitle>
@@ -53,7 +59,6 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
         <Formik
           initialValues={{
             name: expense.name,
-            kind: expense.kind,
             installmentNumber: expense.installmentNumber,
           }}
           onSubmit={handleUpdate}
@@ -110,40 +115,16 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
             />
           </LocalizationProvider>
 
-          <Select
-            labelId={`kind-label`}
-            name={`kind`}
-            id={`kind`}
-            label="Orçamento"
-            required
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.kind}
+          {expense.status === "Pago" ?
 
-            sx={{ minWidth: '200px', color: '#e0e0e2' }}
-          >
-            {Object.entries(expenseKinds).map(([key, value]) => (
-              <MenuItem key={key} value={key} sx={{ color: '#e0e0e2' }}>
-                {value}
-              </MenuItem>
-            ))}
-          </Select>
-
-          { values.kind === 'installment' &&
-            <TextField
-              label="Parcelas"
-              margin="dense"
-              name="installmentNumber"
-              id="installmentNumber"
-              InputProps={{ inputProps: { min: 1 } }}
-              required
-              type="number"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.installmentNumber}
-              // sx={{ width: '80px' }}
-            />
-          }
+            <Button onClick={() => handleUnpayExpense(expense.id)}>
+              Remover Pagamento
+            </Button>
+            :
+            <Button onClick={() => handlePayExpense(expense.id)}>
+              Pagar
+            </Button>
+            }
 
             {requestErrors && <ErrorMessage messages={requestErrors} />}
 

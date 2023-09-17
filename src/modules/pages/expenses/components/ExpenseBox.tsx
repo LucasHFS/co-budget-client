@@ -42,7 +42,15 @@ export const ExpenseBox = ({expense, selected, onClick}: {expense: Expense, sele
   return (
     <>
       <div
-        className={cx(styles.box, { [styles.selected]: selected })}
+        className={
+          cx(styles.box,
+            {
+              [styles.selected]: selected,
+              [styles.paid]: expense.status === 'Pago',
+              [styles.overdue]: expense.status === 'Atrasado',
+            }
+          )
+        }
         onClick={() => onClick(expense.id)}
       >
         <div className={styles.title}>{expense.name}</div>

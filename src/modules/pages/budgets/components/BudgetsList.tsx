@@ -10,7 +10,7 @@ export const BudgetsList = ({budgets}: {budgets:Budget[]}) => {
         <title>Co-Finance - Budgets</title>
       </Head>
 
-      <h2 className={styles.title}>Orçamentos de Venda Cadastrados</h2>
+      <h2 className={styles.title}>Orçamentos Cadastrados</h2>
       <div className={styles.container}>
         {budgets?.map((budget) => <BudgetBox key={budget.id} budget={budget} />)}
       </div>

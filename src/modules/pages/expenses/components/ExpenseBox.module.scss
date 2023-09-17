@@ -19,6 +19,12 @@
   background-color: #464651;
   outline: 1px solid var(--text-secondary);
 }
+.box.paid {
+  background-color: #54b479;
+}
+.box.overdue {
+  background-color: #b6504d;
+}
 
 .form {
   display: flex;

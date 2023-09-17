@@ -12,6 +12,7 @@ import { WarnModal } from "./components/WarnModal";
 import Router from 'next/router'
 import { ExpensesList } from "./components/ExpensesList";
 import { MonthSelect } from "./components/MonthSelect";
+import { TotalValues } from "./components/TotalValues";
 
 export const ExpensesPage = () => {
   const { selectedBudgetId } = useBudget()
@@ -46,6 +47,8 @@ export const ExpensesPage = () => {
       <MonthSelect />
 
       <BudgetSelect />
+
+
       <div className={styles.content}>
         <CreateExpenseModal open={open} onClose={handleClose}/>
         <WarnModal
@@ -57,6 +60,8 @@ export const ExpensesPage = () => {
           }}
           action={{text: 'Criar Orçamento', handle: handleAction}}
           />
+
+        <TotalValues />
 
         <ExpensesList expenses={expenses} />
 

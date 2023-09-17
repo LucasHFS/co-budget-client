@@ -48,8 +48,6 @@ export const CreateExpenseModal = ({open, onClose}: any) => {
 
     const success = await createExpense(data);
 
-    console.log(data)
-
     if(success){
       handleClose()
     }
