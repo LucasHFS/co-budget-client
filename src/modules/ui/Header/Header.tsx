@@ -68,10 +68,6 @@ const LoggedLinks = () => {
   return (
     <>
       <NavLink Icon={HomeIcon} link="/" text="Gastos" />
-      {/* <NavLink Icon={DashboardIcon} link="/deliveries" text="Entregas" /> */}
-      {/* <NavLink Icon={DashboardIcon} link="/products" text="Produtos" />
-      <NavLink Icon={DashboardIcon} link="/clients" text="Clientes" />
-      <NavLink Icon={DashboardIcon} link="/drivers" text="Motoristas" /> */}
       <NavLink Icon={DashboardIcon} link="/budgets" text="Orçamentos" />
 
       <LogOutOption />

@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { Formik } from 'formik';
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
-import { useBudget } from '@/modules/orders';
+import { useBudget } from '@/modules/expenses';
 import styles from "../Budget.module.scss";
 
 export const CreateBudgetModal = ({open, onClose}:any) => {

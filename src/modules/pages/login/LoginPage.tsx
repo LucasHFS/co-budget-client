@@ -25,7 +25,7 @@ export const LoginPage = () => {
   return (
     <div className={styles.content}>
       <Head>
-        <title>Marmitex - Login</title>
+        <title>Co-Finance - Login</title>
       </Head>
       <form onSubmit={onSubmit} className={styles.container}>
           <TextInput

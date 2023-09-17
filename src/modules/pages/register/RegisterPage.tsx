@@ -27,7 +27,7 @@ export const RegisterPage = () => {
   return (
     <div className={styles.content}>
       <Head>
-        <title>Marmitex - Register</title>
+        <title>Co-Finance - Register</title>
       </Head>
       <form onSubmit={onSubmit} className={styles.container}>
           <TextInput

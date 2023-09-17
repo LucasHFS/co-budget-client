@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Head from "next/head";
 
 import { BudgetsList } from "./components/BudgetsList";
-import { useBudget } from "@/modules/orders";
+import { useBudget } from "@/modules/expenses";
 import styles from "./Budget.module.scss";
 import { CreateBudgetModal } from "./components/CreateBudgetModal";
 import { Fab } from "@mui/material";
@@ -25,7 +25,7 @@ export const BudgetsPage = () => {
   return (
     <>
       <Head>
-        <title>Marmitex - Budgets</title>
+        <title>Co-Finance - Budgets</title>
       </Head>
 
       <div className={styles.content}>

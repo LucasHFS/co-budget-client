@@ -2,11 +2,11 @@
   font-size: 16px;
   padding: 12px 20px;
   background-color: var(--background-floor-1);
-  border: 1px solid var(--text-secondary);
+  bexpense: 1px solid var(--text-secondary);
   cursor: pointer;
   text-align: center;
   &:active {
-    border-color: var(--text-primary);
+    bexpense-color: var(--text-primary);
     background-color: var(--background-floor-2);
   }
 

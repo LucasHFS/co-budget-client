@@ -15,9 +15,38 @@
   background-color: #464651;
   outline: 1px solid var(--text-secondary);
 }
+.box.selected {
+  background-color: #464651;
+  outline: 1px solid var(--text-secondary);
+}
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+
+.menuItem {
+  color: black;
+}
+
+.dynamicFields {
+  gap: 15px;
+}
+
+.productRow {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+
+.editLine {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.editLine > *:first-child {
+  margin-right: 15px;
 }

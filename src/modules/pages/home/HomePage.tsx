@@ -1,13 +1,13 @@
 import Head from "next/head";
-import { OrdersPage } from "../orders/OrdersPage";
+import { ExpensesPage } from "../expenses/ExpensesPage";
 
 export const HomePage = () => {
   return (
     <>
       <Head>
-        <title>Marmitex - Home</title>
+        <title>Co-Finance - Home</title>
       </Head>
-      <OrdersPage />
+      <ExpensesPage />
     </>
   );
 };

@@ -1,11 +1,11 @@
 .container {
   background-color: var(--background-floor-2);
   padding: 8px 12px;
-  border-bottom: 1px solid var(--text-secondary);
+  bexpense-bottom: 1px solid var(--text-secondary);
   transition: all 0.2s ease;
 
   &:focus-within {
-    border-bottom: 1px solid white;
+    bexpense-bottom: 1px solid white;
   }
 
   * {
@@ -17,7 +17,7 @@
 .input {
   margin-top: 2px;
   background-color: var(--background-floor-2);
-  border: none;
+  bexpense: none;
   outline: none;
   width: 100%;
   font-size: 16px;

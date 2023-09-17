@@ -1,4 +1,4 @@
-import { Budget } from "@/modules/orders/domain/Budget";
+import { Budget } from "@/modules/expenses/domain/Budget";
 import Head from "next/head";
 import { BudgetBox } from "./BudgetBox";
 import styles from "./BudgetsList.module.scss";
@@ -7,7 +7,7 @@ export const BudgetsList = ({budgets}: {budgets:Budget[]}) => {
   return (
     <>
       <Head>
-        <title>Marmitex - Budgets</title>
+        <title>Co-Finance - Budgets</title>
       </Head>
 
       <h2 className={styles.title}>Orçamentos de Venda Cadastrados</h2>

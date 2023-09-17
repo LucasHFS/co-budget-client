@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Formik } from "formik";
 import { useConfirm } from "material-ui-confirm";
 
-import { useBudget } from "@/modules/orders";
+import { useBudget } from "@/modules/expenses";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import styles from "./BudgetBox.module.scss";
 import Link from "next/link";
