@@ -22,6 +22,12 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
   //@ts-ignore
   const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
 
+  const targetExpenseOptions = [
+    { value: 'one', name: 'Apenas esta' },
+    { value: 'this_and_next', name: 'Essa e as proximas' },
+    { value: 'all', name: 'Todas' }
+  ]
+
   //@ts-ignore
   const handleUpdate = async (values, { setSubmitting }) => {
     const data = {
@@ -60,6 +66,7 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
           initialValues={{
             name: expense.name,
             installmentNumber: expense.installmentNumber,
+            targetExpenses: 'one',
           }}
           onSubmit={handleUpdate}
         >
@@ -115,6 +122,28 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
             />
           </LocalizationProvider>
 
+          { expense.kind !== "once" &&
+              <>
+                <InputLabel id={`targetExpenses-label`}>Despesa Repetida, quais deseja editar?</InputLabel>
+                <Select
+                  labelId={`targetExpenses-label`}
+                  name={`targetExpenses`}
+                  id={`targetExpenses`}
+                  required
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.targetExpenses}
+
+                  sx={{ minWidth: '200px', color: '#e0e0e2' }}
+                >
+                  {targetExpenseOptions.map((targetExpenses) => (
+                    <MenuItem key={`${targetExpenses.name}`} value={targetExpenses.value} className={styles.menuItem}>{targetExpenses.name}</MenuItem>
+                  ))}
+                </Select>
+              </>
+            }
+
+
           {expense.status === "Pago" ?
 
             <Button onClick={() => handleUnpayExpense(expense.id)}>
@@ -130,7 +159,7 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
 
             <DialogActions>
               <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
-              <Button type="submit" variant="outlined">Cadastrar</Button>
+              <Button type="submit" variant="outlined">Atualizar</Button>
             </DialogActions>
           </Form>
           )}

@@ -115,7 +115,7 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
       }, [selectedBudgetId, refetchExpenses])
 
   const updateExpense = useCallback(
-    async ({ id, dueAt, price, name, kind, installmentNumber, }: {id: number, dueAt: string, price: number, name: string, kind: string, installmentNumber: number }) =>  {
+    async ({ id, dueAt, price, name, kind, installmentNumber, targetExpenses }: {id: number, dueAt: string, price: number, name: string, kind: string, installmentNumber: number, targetExpenses:string }) =>  {
       try {
           setisLoading(true);
 
@@ -126,7 +126,8 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
               name,
               kind,
               installmentNumber,
-              budgetId: selectedBudgetId
+              budgetId: selectedBudgetId,
+              targetExpenses,
             },
           });
 
@@ -144,11 +145,11 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
       }, [refetchExpenses])
 
   const deleteExpense = useCallback(
-    async ({ id }: {id: number}) =>  {
+    async ({ id, targetExpenses }: {id: number, targetExpenses: any}) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.delete(`/expenses/${id}`);
+          const response = await api.delete(`/expenses/${id}?targetExpenses=${targetExpenses}`);
 
           if (response.status === 204) {
             refetchExpenses()

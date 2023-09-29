@@ -27,9 +27,9 @@ export const CreateExpenseModal = ({open, onClose}: any) => {
   const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
 
   const expenseKinds = [
-    { id: 1, name: 'Única' },
-    { id: 2, name: 'Fixa' },
-    { id: 3, name: 'Parcelas' }
+    { value: 'once', name: 'Única' },
+    { value: 'fixed', name: 'Fixa' },
+    { value: 'installment', name: 'Parcelas' }
   ]
 
   const installmentKind = expenseKinds[2]
@@ -62,7 +62,7 @@ export const CreateExpenseModal = ({open, onClose}: any) => {
         <Formik
           initialValues={{
             name: '',
-            kind: 1,
+            kind: 'once',
             installmentNumber: 1,
           }}
           onSubmit={handleCreate}
@@ -129,11 +129,11 @@ export const CreateExpenseModal = ({open, onClose}: any) => {
               sx={{ minWidth: '200px', color: '#e0e0e2' }}
             >
               {expenseKinds.map((expense) => (
-                <MenuItem key={`${expense.name}`} value={expense.id} className={styles.menuItem}>{expense.name}</MenuItem>
+                <MenuItem key={`${expense.name}`} value={expense.value} className={styles.menuItem}>{expense.name}</MenuItem>
               ))}
             </Select>
 
-            { values.kind === installmentKind.id &&
+            { values.kind === installmentKind.value &&
               <TextField
                 label="Parcelas"
                 margin="dense"

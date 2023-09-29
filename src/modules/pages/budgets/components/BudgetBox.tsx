@@ -51,15 +51,9 @@ export const BudgetBox = ({budget}: any) => {
 
   return (
     <>
-      <div className={styles.box}>
+      <div className={styles.box} onClick={handleClickOpen}>
         <div className={styles.title}>#{budget.id}</div>
         <div className={styles.title}>{budget.name}</div>
-        <div className={styles.title}>
-          <Link className={styles.title} href={`/budgets/${budget.id}`}>Expenses</Link>
-          <br/>
-          <br/>
-          <span onClick={handleClickOpen}>edit</span>
-        </div>
       </div>
 
       <Dialog open={open} onClose={handleClose}>
