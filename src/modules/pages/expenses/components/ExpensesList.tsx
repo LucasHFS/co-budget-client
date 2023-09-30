@@ -8,10 +8,6 @@ import styles from "./ExpensesList.module.scss";
 
 export const ExpensesList = ({expenses}: {expenses:Expense[]}) => {
   const [selectedExpenses, setSelectedExpenses] = useState([]);
-  const { setErrors } = useExpense()
-
-
-  const [open, setOpen] = useState(false);
 
   //@ts-ignore
   const handleBoxClick = (expenseId) => {

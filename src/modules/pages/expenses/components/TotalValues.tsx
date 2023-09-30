@@ -7,8 +7,6 @@ export const TotalValues = () => {
   const totalPayablae = calculateTotalPayable()
   const totalPaid = totalPayablae - balanceToPay
 
-  console.log({balanceToPay, totalPayablae, totalPaid})
-
   return (
     <div style={{textAlign: 'center', fontWeight: 'bold', display: 'flex', flexDirection: 'column', gap: '5px'}}>
       <div>

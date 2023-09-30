@@ -1,50 +1,17 @@
-import { Button, InputLabel, MenuItem, Select } from "@mui/material";
-import { useState } from "react";
+import { Button } from "@mui/material";
 import { NumericFormat } from "react-number-format";
 
-import { useExpense } from "@/modules/expenses";
 import styles from "./ExpenseBox.module.scss";
 import { Expense } from "@/modules/expenses/domain/Expense";
 
 import cx from "classnames";
 import { UpdateExpenseModal } from "./UpdateExpenseModal";
 import { formatDate } from "@/modules/utils/date";
-import { useConfirm } from "material-ui-confirm";
-import { ArrowRight, ArrowRightAlt } from "@mui/icons-material";
+import {  ArrowRightAlt } from "@mui/icons-material";
+import { useExpenseBox } from "../hooks/useExpenseBox";
 
 export const ExpenseBox = ({expense, selected, onClick}: {expense: Expense, selected: boolean, onClick: any}) => {
-  const [open, setOpen] = useState(false);
-  const { deleteExpense, setErrors } = useExpense()
-  const confirm = useConfirm();
-
-  const targetExpenseOptions = [
-    { value: 'one', name: 'Apenas esta' },
-    { value: 'this_and_next', name: 'Essa e as proximas' },
-  ]
-
-  // @ts-ignore
-  const handleExclude = async (expense) => {
-    confirm({ title: 'Tem certeza?', description: 'Essa ação excluira a despesa', titleProps: { color: 'black'}})
-      .then(async()=>{
-        const success = await deleteExpense({id: expense.id, targetExpenses: 'one'});
-
-        if(success){
-          handleClose()
-        }
-      })
-    .catch((err) => {
-      console.log(err)
-    });
-  }
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setErrors([])
-  };
+  const { handleExclude, handleClickOpen, handleClose, open } = useExpenseBox()
 
   return (
     <>

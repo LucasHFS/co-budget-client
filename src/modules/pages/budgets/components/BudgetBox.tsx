@@ -1,53 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import { useState } from "react";
 import { Formik } from "formik";
-import { useConfirm } from "material-ui-confirm";
-
-import { useBudget } from "@/modules/expenses";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import styles from "./BudgetBox.module.scss";
-import Link from "next/link";
+import { useBudgetBox } from "../hooks/useBudgetBox";
 
 export const BudgetBox = ({budget}: any) => {
-  const [open, setOpen] = useState(false);
-  const { updateBudget, deleteBudget, errors: requestErrors, setErrors } = useBudget()
-
-
-  const confirm = useConfirm();
-
-  const handleExclude = async (id: number) => {
-    confirm({ title: 'Tem certeza?', description: 'Essa ação excluira o Orçamento', titleProps: { color: 'black'}})
-      .then(async()=>{
-        const success = await deleteBudget({id});
-
-        if(success){
-          handleClose()
-        }
-      })
-    .catch((err) => {
-      console.log(err)
-    });
-  }
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setErrors([])
-  };
-
-  //@ts-ignore
-  const handleUpdate = async (values, { setSubmitting }) => {
-    const {id, name } = values
-    const success = await updateBudget({id, name });
-    if(success){
-      handleClose()
-    }
-
-    setSubmitting(false);
-  }
+  const { handleClickOpen, handleClose, handleUpdate, requestErrors, handleExclude, open, } = useBudgetBox()
 
   return (
     <>

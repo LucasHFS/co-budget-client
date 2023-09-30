@@ -1,62 +1,28 @@
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { FieldArray, Form, Formik } from "formik";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, MenuItem, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Form, Formik } from "formik";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
-import { FormControl, InputLabel, MenuItem } from "@mui/material";
 import Select from '@mui/material/Select';
-import { useExpense } from "@/modules/expenses";
-import { useState } from "react";
 import styles from "./ExpenseBox.module.scss";
 import { NumericFormat } from "react-number-format";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import moment from "moment";
-import { parseDate } from "@/modules/utils/date";
+import { useUpdateExpenseModal } from "../hooks/useUpdateExpenseModal";
 
 export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
-  const { updateExpense, errors: requestErrors, payExpense, unpayExpense, refetchExpenses } = useExpense()
-  const [price, setPrice] = useState(expense.price)
-  const [dueAt, setDueAt] = useState(() => parseDate(expense.dueAt));
 
-  //@ts-ignore
-  const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
-
-  const targetExpenseOptions = [
-    { value: 'one', name: 'Apenas esta' },
-    { value: 'this_and_next', name: 'Essa e as proximas' },
-    { value: 'all', name: 'Todas' }
-  ]
-
-  //@ts-ignore
-  const handleUpdate = async (values, { setSubmitting }) => {
-    const data = {
-      ...values,
-      id: expense.id,
-      dueAt,
-      price,
-    }
-
-    const success = await updateExpense(data);
-
-    if(success){
-      handleClose()
-    }
-
-    setSubmitting(false);
-  }
-
-  const handlePayExpense = (id: number) => {
-    payExpense(id)
-    refetchExpenses()
-    handleClose()
-  };
-
-  const handleUnpayExpense = (id: number) => {
-    unpayExpense(id)
-    refetchExpenses()
-    handleClose()
-  };
+  const {
+    handleUpdate,
+    setDueAt,
+    setPrice,
+    price,
+    modifiedValue,
+    targetExpenseOptions,
+    handleUnpayExpense,
+    handlePayExpense,
+    requestErrors,
+  } = useUpdateExpenseModal({expense, handleClose})
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -75,9 +41,6 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
             values,
             handleChange,
             handleBlur,
-            handleSubmit,
-            setFieldValue,
-            setValues,
           }) => (
             <Form className={styles.form}>
             <TextField
@@ -142,7 +105,6 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
                 </Select>
               </>
             }
-
 
           {expense.status === "Pago" ?
 

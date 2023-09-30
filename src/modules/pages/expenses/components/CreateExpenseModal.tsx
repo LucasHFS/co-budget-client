@@ -1,59 +1,22 @@
-import { Form, Formik, FieldArray } from 'formik';
+import { Form, Formik } from 'formik';
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { FormControl, InputLabel, MenuItem, ToggleButton, ToggleButtonGroup, Select } from "@mui/material";
+import { MenuItem, Select } from "@mui/material";
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Autocomplete from '@mui/material/Autocomplete';
-import { isNotEmpty } from "@/modules/utils/string";
 import { NumericFormat } from "react-number-format";
-import { useState } from 'react';
-import { useExpense } from '@/modules/expenses';
 import styles from "../Expense.module.scss";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import moment from "moment";
-
+import { useCreateExpenseModal } from '../hooks/useCreateExpenseModal';
 
 export const CreateExpenseModal = ({open, onClose}: any) => {
-  const { errors: requestErrors, createExpense, refetchExpenses } = useExpense()
-  const [price, setPrice] = useState('')
-  const [dueAt, setDueDate] = useState("");
-  const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
-
-  const expenseKinds = [
-    { value: 'once', name: 'Única' },
-    { value: 'fixed', name: 'Fixa' },
-    { value: 'installment', name: 'Parcelas' }
-  ]
-
-  const installmentKind = expenseKinds[2]
-
-  const handleClose = () => {
-    onClose()
-  }
-
-  //@ts-ignore
-  const handleCreate = async (values, { setSubmitting }) => {
-    const data = {
-      ...values,
-      dueAt,
-      price,
-    }
-
-    const success = await createExpense(data);
-
-    if(success){
-      handleClose()
-    }
-
-    setSubmitting(false);
-  }
+  const { handleClose, handleCreate, modifiedValue, expenseKinds, installmentKind, setPrice, price, requestErrors, setDueDate } = useCreateExpenseModal({onClose})
 
   return (
     <Dialog open={open} onClose={handleClose}>

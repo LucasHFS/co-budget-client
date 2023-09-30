@@ -48,7 +48,6 @@ export const ExpensesPage = () => {
 
       <BudgetSelect />
 
-
       <div className={styles.content}>
         <CreateExpenseModal open={open} onClose={handleClose}/>
         <WarnModal
@@ -64,7 +63,6 @@ export const ExpensesPage = () => {
         <TotalValues />
 
         <ExpensesList expenses={expenses} />
-
 
         <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen}>
           <AddIcon color="primary"/>
