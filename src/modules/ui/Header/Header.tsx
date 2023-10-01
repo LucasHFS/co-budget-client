@@ -37,12 +37,6 @@ const NavLink = ({ Icon, link, text }: NavLinkProps) => {
   return (
     <li className={styles.navLink}>
       <Link className={styles.navLinkContent} href={link}>
-        {/* <Icon
-          className={cx(styles.navLinkIcon, {
-            [styles.active]: isActive,
-          })}
-        /> */}
-
         <span
           className={cx(styles.navLinkText, {
             [styles.active]: isActive,
@@ -80,12 +74,6 @@ const LogOutOption = () => {
   return (
     <li className={styles.navLink}>
       <Link className={styles.navLinkContent} onClick={signOut} href='/'>
-        {/* <Icon
-          className={cx(styles.navLinkIcon, {
-            [styles.active]: isActive,
-          })}
-        /> */}
-
         <span
           className={cx(styles.navLinkText)}
         >

@@ -1,9 +1,13 @@
+import { capitalize } from '@/lib/utils/string';
 import { useExpense } from '@/modules/expenses';
 
 export const useMonthSelect = () => {
   const { selectedMonthDate, setSelectedMonthDate } = useExpense()
-  const currentMonth = selectedMonthDate.getMonth() + 1;
   const currentYear = selectedMonthDate.getFullYear();
+
+  const currentMonthText = new Intl.DateTimeFormat('pt-BR', {
+    month: 'long',
+  }).format(selectedMonthDate);
 
   const setPreviousMonthDate = () => {
     const newDate = new Date(selectedMonthDate);
@@ -21,7 +25,7 @@ export const useMonthSelect = () => {
     selectedMonthDate,
     setPreviousMonthDate,
     setNextMonthDate,
-    currentMonth,
+    currentMonth: capitalize(currentMonthText),
     currentYear,
   };
 };
