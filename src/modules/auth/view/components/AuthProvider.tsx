@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
           });
 
           authenticateUser(response.data.user);
-          router.push('/')
+          router.push('/budgets')
         } catch (err) {
           //@ts-ignore
           setErrors(formatedErrorsArray(err));
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
             toastSuccess("Account Created!");
 
             authenticateUser(response.data.user);
-            router.push('/')
+            router.push('/budgets')
           }
         } catch (err) {
           //@ts-ignore
@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
   const signOut = useCallback(() => {
     destroyCookie(undefined, "marmitex.token");
     setUser({});
-    router.push('/')
+    router.push('/budgets')
 
   }, [router]);
 

@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -79,22 +79,30 @@ export const CreateExpenseModal = ({open, onClose}: any) => {
               />
             </LocalizationProvider>
 
-            <Select
-              labelId={`kind-label`}
-              name={`kind`}
-              id={`kind`}
-              label="Orçamento"
-              required
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.kind}
+            <FormControl>
+              <InputLabel
+                id={`kind-label`}
+              >
+                Recorrencia
+              </InputLabel>
 
-              sx={{ minWidth: '200px', color: '#e0e0e2' }}
-            >
-              {expenseKinds.map((expense) => (
-                <MenuItem key={`${expense.name}`} value={expense.value} className={styles.menuItem}>{expense.name}</MenuItem>
-              ))}
-            </Select>
+              <Select
+                labelId={`kind-label`}
+                name={`kind`}
+                id={`kind`}
+                label="Recorrencia"
+                required
+
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.kind}
+                className={styles.select}
+              >
+                {expenseKinds.map((expense) => (
+                  <MenuItem key={`${expense.name}`} value={expense.value} className={styles.menuItem}>{expense.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
             { values.kind === installmentKind.value &&
               <TextField

@@ -17,8 +17,8 @@ type BudgetProviderValue = {
   deleteBudget: any
   budgets: Budget[]
   setBudgets: any
-  selectedBudgetId: Budget
-  setselectedBudgetId: any
+  selectedBudgetId: any
+  setSelectedBudgetId: any
   isLoading: boolean
   errors: string[]
   setErrors: any
@@ -35,7 +35,7 @@ type ExpenseContextProviderProps = {
 export const BudgetProvider = ({ children }: ExpenseContextProviderProps) => {
   const [budgets, setBudgets] = useState<Budget[]>([])
   //@ts-ignore
-  const [selectedBudgetId, setselectedBudgetId] = useState<Budget | undefined>(() => {
+  const [selectedBudgetId, setSelectedBudgetId] = useState<Budget | undefined>(() => {
     if (typeof window !== 'undefined') {
       const storedValue = localStorage.getItem('selectedBudgetId');
       return storedValue;
@@ -178,7 +178,7 @@ export const BudgetProvider = ({ children }: ExpenseContextProviderProps) => {
       budgets,
       setBudgets,
       selectedBudgetId,
-      setselectedBudgetId,
+      setSelectedBudgetId,
       isLoading,
       errors,
       setErrors,
@@ -190,7 +190,7 @@ export const BudgetProvider = ({ children }: ExpenseContextProviderProps) => {
       budgets,
       setBudgets,
       selectedBudgetId,
-      setselectedBudgetId,
+      setSelectedBudgetId,
       isLoading,
       errors,
       setErrors,

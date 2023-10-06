@@ -1,11 +1,11 @@
 import { Fab, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useBudget } from "@/modules/expenses";
 import styles from "../Expense.module.scss";
-import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import Router from 'next/router'
 
 export const BudgetSelect = ({}) =>{
-  const { selectedBudgetId, setselectedBudgetId, budgets } = useBudget()
+  const { selectedBudgetId, setSelectedBudgetId, budgets } = useBudget()
 
   const redirectToEvents = () => {
     Router.push('/budgets')
@@ -28,7 +28,7 @@ export const BudgetSelect = ({}) =>{
           label="Orçamento"
           required
           onChange={(e) => {
-            setselectedBudgetId(e.target.value);
+            setSelectedBudgetId(e.target.value);
           }}
           sx={{ minWidth: '200px', color: '#e0e0e2' }}
         >
@@ -40,7 +40,7 @@ export const BudgetSelect = ({}) =>{
         {/* @ts-ignore */}
         <Fab aria-label="add" color="white" onClick={redirectToEvents}>
           {/* @ts-ignore */}
-          <AddIcon color="black"/>
+          <EditIcon color="black"/>
         </Fab>
       </div>
     </FormControl>

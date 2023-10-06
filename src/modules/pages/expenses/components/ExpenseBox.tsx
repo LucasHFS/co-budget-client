@@ -10,8 +10,8 @@ import { formatDate } from "@/modules/utils/date";
 import {  ArrowRightAlt } from "@mui/icons-material";
 import { useExpenseBox } from "../hooks/useExpenseBox";
 
-export const ExpenseBox = ({expense, selected, onClick}: {expense: Expense, selected: boolean, onClick: any}) => {
-  const { handleExclude, handleClickOpen, handleClose, open } = useExpenseBox()
+export const ExpenseBox = ({ expense }: {expense: Expense }) => {
+  const { handleClickOpen, handleClose, open } = useExpenseBox()
 
   return (
     <>
@@ -19,13 +19,12 @@ export const ExpenseBox = ({expense, selected, onClick}: {expense: Expense, sele
         className={
           cx(styles.box,
             {
-              [styles.selected]: selected,
               [styles.paid]: expense.status === 'Pago',
               [styles.overdue]: expense.status === 'Atrasado',
             }
           )
         }
-        onClick={() => onClick(expense.id)}
+        onClick={handleClickOpen}
       >
         <div className={styles.title} style={{display: 'flex', alignItems: 'center', }}>
           {expense.name} <ArrowRightAlt /> <NumericFormat
@@ -36,17 +35,8 @@ export const ExpenseBox = ({expense, selected, onClick}: {expense: Expense, sele
           /> <ArrowRightAlt /> {formatDate(expense.dueAt)}
 
         </div>
-        <div className={styles.title}>
 
-        </div>
         { expense.status !== 'Criado' ? <div className={styles.title}>{expense.status}</div> : null }
-        {selected && (
-          <div className={styles.editLine}>
-            <Button variant="contained" onClick={handleClickOpen}>Editar</Button>
-            {/* @ts-ignore */}
-            <Button variant="contained" onClick={() => handleExclude(expense)} color= "error">Excluir</Button>
-          </div>
-        )}
       </div>
 
       <UpdateExpenseModal open={open} expense={expense} handleClose={handleClose}/>

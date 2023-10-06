@@ -3,6 +3,7 @@ import moment from "moment";
 import { parseDate } from "@/modules/utils/date";
 import { Expense } from "@/modules/expenses/domain/Expense";
 import { useExpense } from "@/modules/expenses";
+import { useConfirm } from "material-ui-confirm";
 
 export const useUpdateExpenseModal = ({expense, handleClose}: any) => {
   const [price, setPrice] = useState(expense.price)
@@ -36,6 +37,24 @@ export const useUpdateExpenseModal = ({expense, handleClose}: any) => {
     setSubmitting(false);
   }
 
+  const { deleteExpense, setErrors } = useExpense()
+
+  const confirm = useConfirm();
+  // @ts-ignore
+  const handleExclude = async (expense) => {
+    confirm({ title: 'Tem certeza?', description: 'Essa ação excluira a despesa', titleProps: { color: 'black'}})
+      .then(async()=>{
+        const success = await deleteExpense({id: expense.id, targetExpenses: 'one'});
+
+        if(success){
+          handleClose()
+        }
+      })
+    .catch((err) => {
+      console.log(err)
+    });
+  }
+
   const handlePayExpense = (id: number) => {
     payExpense(id)
     refetchExpenses()
@@ -58,5 +77,6 @@ export const useUpdateExpenseModal = ({expense, handleClose}: any) => {
     handleUnpayExpense,
     handlePayExpense,
     requestErrors,
+    handleExclude,
   }
 }

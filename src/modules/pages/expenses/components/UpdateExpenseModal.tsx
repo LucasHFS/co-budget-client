@@ -1,5 +1,5 @@
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, MenuItem, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Form, Formik } from "formik";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import Select from '@mui/material/Select';
@@ -14,6 +14,7 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
 
   const {
     handleUpdate,
+    handleExclude,
     setDueAt,
     setPrice,
     price,
@@ -87,22 +88,22 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
 
           { expense.kind !== "once" &&
               <>
-                <InputLabel id={`targetExpenses-label`}>Despesa Repetida, quais deseja editar?</InputLabel>
-                <Select
-                  labelId={`targetExpenses-label`}
-                  name={`targetExpenses`}
-                  id={`targetExpenses`}
-                  required
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.targetExpenses}
+                  <InputLabel id={`targetExpenses-label`}>Despesa recorrente, quais editar?</InputLabel>
+                  <Select
+                    labelId={`targetExpenses-label`}
+                    name={`targetExpenses`}
+                    id={`targetExpenses`}
+                    required
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.targetExpenses}
 
-                  sx={{ minWidth: '200px', color: '#e0e0e2' }}
-                >
-                  {targetExpenseOptions.map((targetExpenses) => (
-                    <MenuItem key={`${targetExpenses.name}`} value={targetExpenses.value} className={styles.menuItem}>{targetExpenses.name}</MenuItem>
-                  ))}
-                </Select>
+                  >
+                    {targetExpenseOptions.map((targetExpenses) => (
+                      <MenuItem key={`${targetExpenses.name}`} value={targetExpenses.value} className={styles.menuItem}>{targetExpenses.name}</MenuItem>
+                    ))}
+                  </Select>
+
               </>
             }
 
@@ -121,6 +122,7 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
 
             <DialogActions>
               <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
+              <Button variant="contained" onClick={() => handleExclude(expense)} color= "error">Excluir</Button>
               <Button type="submit" variant="outlined">Atualizar</Button>
             </DialogActions>
           </Form>
