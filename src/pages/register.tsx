@@ -7,7 +7,9 @@ const Page = () => {
 
 export const getServerSideProps = withSSRGuest(async (ctx) => {
   return {
-    props: {}
+    props: {
+      title: 'Cadastro'
+    }
   }
 })
 

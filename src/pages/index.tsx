@@ -7,7 +7,9 @@ const Page = () => {
 
 export const getServerSideProps = withSSRAuth(async (ctx) => {
   return {
-    props: {}
+    props: {
+      title: 'Gastos'
+    }
   }
 })
 

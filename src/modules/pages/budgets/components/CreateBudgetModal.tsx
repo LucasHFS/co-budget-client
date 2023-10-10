@@ -3,10 +3,11 @@ import { Formik } from 'formik';
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import { useBudget } from '@/modules/expenses';
 import styles from "../Budget.module.scss";
+import { useBudgetBox } from "../hooks/useBudgetBox";
 
 export const CreateBudgetModal = ({open, onClose}:any) => {
   const { createBudget, errors: requestErrors } = useBudget()
-
+  const { handleSelectedBudgetId } = useBudgetBox()
 
   const handleClose = () =>{
     onClose()
@@ -19,6 +20,8 @@ export const CreateBudgetModal = ({open, onClose}:any) => {
 
     if(success){
       handleClose()
+      // TODO: fetch the id of the created budget
+      // handleSelectedBudgetId()
     }
 
     setSubmitting(false);

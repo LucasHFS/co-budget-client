@@ -1,95 +1,11 @@
 @import "../../styles/breakpoints.scss";
 
-.header {
-  position: sticky;
-  top: 0;
-  background-color: var(--background-floor-2);
-  padding: 16px;
-  z-index: var(--header-z-index);
 
-  @include min-desktop {
-    padding: 40px 20px;
-  }
-}
-
-.navLinkList {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-
-  @include min-desktop {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-}
-
-@mixin navLinkIconActive {
-  fill: var(--text-highlight);
-}
-
-@mixin navLinkTextActive {
-  color: var(--text-highlight);
-  max-width: 150px;
-  margin-right: 20px;
-  transition-delay: calc(var(--navLinkTransitionDuration) + 0.2s);
-
-  &:last-of-type {
-    margin-right: 0;
-  }
-}
-
-.navLinkContent {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-
-  --navLinkTransitionDuration: 0.4s;
-
-  @include min-desktop {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 32px;
-  }
-
-  &:hover .navLinkIcon {
-    @include navLinkIconActive;
-  }
-
-  &:hover .navLinkText {
-    @include navLinkTextActive;
-  }
-}
-
-.navLinkIcon {
-  fill: var(--text-secondary);
-  width: 24px;
-  height: 24px;
-  transition: all var(--navLinkTransitionDuration) ease;
-
-  &.active {
-    @include navLinkIconActive;
-  }
-}
-
-.navLinkText {
+.active * {
+  color: black;
   font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 2.6px;
-  color: var(--text-secondary);
-  max-width: 0;
-  overflow-x: hidden;
-  transition: all var(--navLinkTransitionDuration) ease;
-  font-size: 16px;
+}
 
-  @include min-desktop {
-    max-width: initial;
-    margin-left: 0;
-    margin-top: 8px;
-    margin-left: 12px;
-  }
-
-  &.active {
-    @include navLinkTextActive;
-  }
+.active {
+  background-color: lightgray;
 }

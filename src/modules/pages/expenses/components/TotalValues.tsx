@@ -8,7 +8,7 @@ export const TotalValues = () => {
   const totalPaid = totalPayablae - balanceToPay
 
   return (
-    <div style={{textAlign: 'center', fontWeight: 'bold', display: 'flex', flexDirection: 'column', gap: '5px'}}>
+    <div style={{textAlign: 'center', fontWeight: 'bold', display: 'flex', flexDirection: 'column', gap: '5px', margin: '5px 0'}}>
       <div>
         <span style={{color: 'red'}}>Saldo a pagar: </span>
         <NumericFormat
@@ -30,7 +30,7 @@ export const TotalValues = () => {
           />
       </div>
       <div>
-        <span>Total de Gastos: </span>
+        <span>Gasto Projetado: </span>
         <NumericFormat
             prefix="R$  "
             displayType="text"

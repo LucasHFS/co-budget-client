@@ -9,7 +9,9 @@ export default Page;
 
 export const getServerSideProps = withSSRGuest(async (ctx) => {
   return {
-    props: {}
+    props: {
+      title: 'Login'
+    }
   }
 })
 

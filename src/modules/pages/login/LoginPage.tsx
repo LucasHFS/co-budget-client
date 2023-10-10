@@ -45,7 +45,7 @@ export const LoginPage = () => {
             required
           />
 
-          <Button disabled={isLoading} type="submit">
+          <Button disabled={isLoading} type="submit" >
             {isLoading ? "Entrando..." : "Entrar"}
           </Button>
 

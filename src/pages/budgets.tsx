@@ -9,7 +9,9 @@ export default Page;
 
 export const getServerSideProps = withSSRAuth(async (ctx) => {
   return {
-    props: {}
+    props: {
+      title: 'Orçamento'
+    }
   }
 })
 

@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <BudgetProvider>
           <ExpenseProvider>
             <ConfirmProvider>
-              <Layout>
+              <Layout title={pageProps.title}>
                 <Component {...pageProps} />
               </Layout>
             </ConfirmProvider>

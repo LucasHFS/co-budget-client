@@ -5,7 +5,7 @@
 }
 
 .container {
-  padding: 12px;
+  padding: 20px 15px;
 
   @include min-desktop {
     margin: 0 auto;
@@ -15,7 +15,10 @@
     justify-content: center;
     width: 80%;
     max-width: 800px;
-    padding: 12px;
+  }
+
+  input {
+    padding: 7px;
   }
 }
 

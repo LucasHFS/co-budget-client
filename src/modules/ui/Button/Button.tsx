@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import styles from "./Button.module.scss";
+import { Button as MuiButton } from '@mui/material';
 
 export type ButtonProps = {
   children: ReactNode;
@@ -7,10 +8,15 @@ export type ButtonProps = {
   disabled?: boolean;
 };
 
-export const Button = ({ children, disabled }: ButtonProps) => {
+export const Button = ({ children, ...props }: ButtonProps) => {
   return (
-    <button disabled={disabled} className={styles.button}>
+    <MuiButton
+      {...props}
+      className={styles.button}
+      variant="contained"
+    >
+
       {children}
-    </button>
+    </MuiButton>
   );
 };

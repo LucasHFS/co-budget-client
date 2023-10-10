@@ -4,12 +4,15 @@ import styles from "./Layout.module.scss";
 
 export type LayoutProps = {
   children: ReactNode;
+  title: string;
 };
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children, title }: LayoutProps) => {
   return (
     <div className={styles.layout}>
-      <Header />
+      <div className={styles.titleContainer}>
+        <Header title={title}/>
+      </div>
 
       <main className={styles.main}>{children}</main>
     </div>

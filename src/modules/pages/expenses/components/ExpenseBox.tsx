@@ -26,17 +26,20 @@ export const ExpenseBox = ({ expense }: {expense: Expense }) => {
         }
         onClick={handleClickOpen}
       >
-        <div className={styles.title} style={{display: 'flex', alignItems: 'center', }}>
-          {expense.name} <ArrowRightAlt /> <NumericFormat
+        <div className={styles.firstRow}>
+          {expense.name}
+          <NumericFormat
             prefix="R$  "
             displayType="text"
             //@ts-ignore
             value={parseFloat(expense.price).toFixed(2)}
-          /> <ArrowRightAlt /> {formatDate(expense.dueAt)}
-
+          />
         </div>
 
-        { expense.status !== 'Criado' ? <div className={styles.title}>{expense.status}</div> : null }
+        <div className={styles.secondRow}>
+          { expense.status !== 'Criado' ? <span className={styles.title}> {expense.status}</span> : null }
+          {formatDate(expense.dueAt)}
+        </div>
       </div>
 
       <UpdateExpenseModal open={open} expense={expense} handleClose={handleClose}/>

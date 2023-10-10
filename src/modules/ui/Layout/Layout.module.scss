@@ -6,6 +6,7 @@
   min-height: 100vh;
   height: 100%;
   background-color: var(--background-floor-0);
+  padding-top: 55px;
 
   @include min-desktop {
     flex-direction: row;
