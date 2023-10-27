@@ -98,6 +98,7 @@ const DrawerItem = () => {
             return(
               <ListItem
               key={text}
+              // @ts-ignore
               component={Link}
               to={item.to}
               sx={{

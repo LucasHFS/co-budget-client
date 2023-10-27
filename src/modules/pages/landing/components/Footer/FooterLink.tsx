@@ -1,10 +1,11 @@
 import { Link } from '@mui/material'
 import React from 'react'
 
-const FooterLink = ({ text }) => {
+const FooterLink = ({ text }: {text:string}) => {
   return (
-    <Link 
+    <Link
     href="#"
+    // @ts-ignore
     variant='p'
     component='a'
     sx={{

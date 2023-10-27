@@ -1,5 +1,5 @@
 import React from 'react'
-import {  
+import {
     Box,
     Button,
     Stack,
@@ -10,7 +10,7 @@ import Paragraph from './Paragraph'
 
 const Details = () => {
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement> ) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
@@ -21,7 +21,7 @@ const Details = () => {
 
 
     return (
-        <Stack 
+        <Stack
         component='section'
         direction="column"
         justifyContent= 'center'
@@ -31,13 +31,13 @@ const Details = () => {
             px: 2,
         }}
         >
-            <Title 
+            <Title
             text={
                 'Interesting to buy property'
-                } 
+                }
             textAlign={'center'}
             />
-            <Paragraph 
+            <Paragraph
             text={
                 'If you are interested to buy the property contact us we will call you. \
                 Shortly to fulfill you requirements and property.'
@@ -47,11 +47,11 @@ const Details = () => {
             textAlign={'center'}
             />
 
-            <Box 
-            component="form" 
-            noValidate 
-            onSubmit={handleSubmit} 
-            sx={{ 
+            <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{
                 mt: 1,
                 py: 2
             }}>
@@ -75,16 +75,16 @@ const Details = () => {
                     id="phone"
                     autoComplete="current-phone"
                 />
-                <Button 
-                variant="contained" 
+                <Button
+                variant="contained"
                 fullWidth
                 type="submit"
                 size="medium"
-                sx= {{ 
+                sx= {{
                     fontSize: '0.9rem',
-                    textTransform: 'capitalize', 
+                    textTransform: 'capitalize',
                     py: 2,
-                    mt: 3, 
+                    mt: 3,
                     mb: 2,
                     borderRadius: 0,
                     backgroundColor: '#14192d',

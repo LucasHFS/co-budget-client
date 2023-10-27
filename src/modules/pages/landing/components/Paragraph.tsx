@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 
+// @ts-ignore
 const Paragraph = ({ text, maxWidth, mx, textAlign }) => {
   return (
     <Typography

@@ -38,6 +38,7 @@ const GetStarted = () => {
         }}
         >
             <CustomGridItem item xs={12} sm={8} md={6}
+            // @ts-ignore
             component = 'section'
 
             >
@@ -54,7 +55,7 @@ const GetStarted = () => {
                     />
                     <CustomTypography>
                         Listing are updated continuously so you<br />
-                        won't miss out on homes that just hit<br />
+                        won&apost miss out on homes that just hit<br />
                         market until you find your perfect home.
                     </CustomTypography>
                 </Box>

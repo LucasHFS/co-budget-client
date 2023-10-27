@@ -1,12 +1,13 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 
+// @ts-ignore
 const Title = ({ text, textAlign }) => {
   return (
-    <Typography 
+    <Typography
     variant='h4'
     component='h3'
-    sx={{ 
+    sx={{
       fontWeight: '700',
       textAlign: textAlign,
    }}

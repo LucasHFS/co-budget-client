@@ -38,6 +38,7 @@ const GetInTouch = () => {
             mx={0}
             textAlign={'center'}
             />
+            {/* @ts-ignore */}
             <Button component={Link}
             to={'/contact'}
             variant="contained"

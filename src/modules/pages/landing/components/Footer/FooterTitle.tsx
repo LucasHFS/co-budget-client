@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 
-const FooterTitle = ({ text }) => {
+const FooterTitle = ({ text }: {text:string}) => {
   return (
     <Typography
     variant='h6'

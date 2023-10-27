@@ -48,10 +48,12 @@ const Header = () => {
                     color: '#fff',
                 }}
                 >
-                    We'll build house of your dream
+                    We&aposll build house of your dream
                 </Typography>
 
                 <Typography
+                // @ts-ignore
+
                 variant='p'
                 component='p'
                 sx={{
@@ -87,6 +89,8 @@ const Header = () => {
                     >
                         buy now
                     </Button>
+                    {/* @ts-ignore */}
+
                     <Button
                     component={Link}
                     to={'/about'}

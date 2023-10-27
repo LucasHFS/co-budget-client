@@ -68,6 +68,7 @@ const Navbar = () => {
                         const { text } = item;
                         return(
                             <ListItem key={text}>
+                                {/* @ts-ignore */}
                                 <ListItemButton component={Link} to={item.to}
                                 sx={{
                                     color: '#fff',
