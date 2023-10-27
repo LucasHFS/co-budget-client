@@ -1,6 +1,6 @@
 import { Fab, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { useBudget } from "@/modules/expenses";
-import styles from "../Expense.module.scss";
+import { useBudget } from "@/modules/transactions";
+import styles from "../Transaction.module.scss";
 import EditIcon from '@mui/icons-material/Edit';
 import Router from 'next/router'
 

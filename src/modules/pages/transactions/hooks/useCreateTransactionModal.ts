@@ -1,21 +1,21 @@
 import { useState } from "react";
 import moment from "moment";
-import { useExpense } from '@/modules/expenses';
+import { useTransaction } from '@/modules/transactions';
 
-export const useCreateExpenseModal = ({onClose}: any) => {
+export const useCreateTransactionModal = ({onClose}: any) => {
   const [price, setPrice] = useState('')
-  const [dueAt, setDueDate] = useState("");
+  const [dueAt, setDueDate] = useState(moment(new Date()).format("DD/MM/YYYY"));
 
   const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
-  const { errors: requestErrors, createExpense, refetchExpenses } = useExpense()
+  const { errors: requestErrors, createTransaction, refetchTransactions } = useTransaction()
 
-  const expenseKinds = [
+  const transactionKinds = [
     { value: 'once', name: 'Única' },
     { value: 'fixed', name: 'Fixa' },
     { value: 'installment', name: 'Parcelas' }
   ]
 
-  const installmentKind = expenseKinds[2]
+  const installmentKind = transactionKinds[2]
 
   const handleClose = () => {
     onClose()
@@ -29,7 +29,7 @@ export const useCreateExpenseModal = ({onClose}: any) => {
       price,
     }
     console.log({data})
-    const success = await createExpense(data);
+    const success = await createTransaction(data);
     console.log({success})
 
     if(success){
@@ -43,7 +43,7 @@ export const useCreateExpenseModal = ({onClose}: any) => {
     handleClose,
     handleCreate,
     modifiedValue,
-    expenseKinds,
+    transactionKinds,
     installmentKind,
     setPrice,
     price,

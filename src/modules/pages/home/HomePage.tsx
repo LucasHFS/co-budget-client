@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { ExpensesPage } from "../expenses/ExpensesPage";
+import { TransactionsPage } from "../transactions/TransactionsPage";
 
 export const HomePage = () => {
   return (
@@ -7,7 +7,7 @@ export const HomePage = () => {
       <Head>
         <title>Co-Finance - Home</title>
       </Head>
-      <ExpensesPage />
+      <TransactionsPage />
     </>
   );
 };
