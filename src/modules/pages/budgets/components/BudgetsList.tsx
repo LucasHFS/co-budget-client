@@ -1,4 +1,4 @@
-import { Budget } from "@/modules/expenses/domain/Budget";
+import { Budget } from "@/modules/transactions/domain/Budget";
 import Head from "next/head";
 import { BudgetBox } from "./BudgetBox";
 import styles from "./BudgetsList.module.scss";

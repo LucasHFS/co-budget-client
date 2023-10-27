@@ -1,4 +1,4 @@
-import { useBudget } from "@/modules/expenses";
+import { useBudget } from "@/modules/transactions";
 import { useConfirm } from "material-ui-confirm";
 import { useState } from "react";
 import { useRouter } from 'next/router'

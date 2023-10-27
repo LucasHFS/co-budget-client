@@ -1,8 +1,8 @@
 import { capitalize } from '@/lib/utils/string';
-import { useExpense } from '@/modules/expenses';
+import { useTransaction } from '@/modules/transactions';
 
 export const useMonthSelect = () => {
-  const { selectedMonthDate, setSelectedMonthDate } = useExpense()
+  const { selectedMonthDate, setSelectedMonthDate } = useTransaction()
   const currentYear = selectedMonthDate.getFullYear();
 
   const currentMonthText = new Intl.DateTimeFormat('pt-BR', {

@@ -1,16 +1,20 @@
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Form, Formik } from "formik";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import Select from '@mui/material/Select';
-import styles from "./ExpenseBox.module.scss";
+import styles from "./TransactionBox.module.scss";
 import { NumericFormat } from "react-number-format";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useUpdateExpenseModal } from "../hooks/useUpdateExpenseModal";
+import { useUpdateTransactionModal } from "../hooks/useUpdateTransactionModal";
 
-export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
+export const UpdateTransactionModal= ({ handleClose, open, transaction }:any) => {
+  const payText = transaction.transactionType == 'expense' ? 'Pagar' : 'Receber'
+  const unpayText = transaction.transactionType == 'expense' ? 'Remover pagamento' : 'Remover recebimento'
+
+  console.log(transaction)
 
   const {
     handleUpdate,
@@ -19,11 +23,11 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
     setPrice,
     price,
     modifiedValue,
-    targetExpenseOptions,
-    handleUnpayExpense,
-    handlePayExpense,
+    targetTransactionOptions,
+    handleUnpayTransaction,
+    handlePayTransaction,
     requestErrors,
-  } = useUpdateExpenseModal({expense, handleClose})
+  } = useUpdateTransactionModal({transaction, handleClose})
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -31,9 +35,10 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
       <DialogContent className={styles.dialog_content}>
         <Formik
           initialValues={{
-            name: expense.name,
-            installmentNumber: expense.installmentNumber,
-            targetExpenses: 'one',
+            name: transaction.name,
+            transactionType: transaction.transactionType,
+            installmentNumber: transaction.installmentNumber,
+            targetTransactions: 'one',
           }}
           onSubmit={handleUpdate}
         >
@@ -86,35 +91,49 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
             />
           </LocalizationProvider>
 
-          { expense.kind !== "once" &&
+          { transaction.kind !== "once" &&
               <>
-                  <InputLabel id={`targetExpenses-label`}>Despesa recorrente, quais editar?</InputLabel>
+                  <InputLabel id={`targetTransactions-label`}>Despesa recorrente, quais editar?</InputLabel>
                   <Select
-                    labelId={`targetExpenses-label`}
-                    name={`targetExpenses`}
-                    id={`targetExpenses`}
+                    labelId={`targetTransactions-label`}
+                    name={`targetTransactions`}
+                    id={`targetTransactions`}
                     required
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.targetExpenses}
+                    value={values.targetTransactions}
 
                   >
-                    {targetExpenseOptions.map((targetExpenses) => (
-                      <MenuItem key={`${targetExpenses.name}`} value={targetExpenses.value} className={styles.menuItem}>{targetExpenses.name}</MenuItem>
+                    {targetTransactionOptions.map((targetTransactions) => (
+                      <MenuItem key={`${targetTransactions.name}`} value={targetTransactions.value} className={styles.menuItem}>{targetTransactions.name}</MenuItem>
                     ))}
                   </Select>
 
               </>
             }
 
-          {expense.status === "Pago" ?
+            <FormControl>
+              <FormLabel>Tipo</FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={values.transactionType}
+                onChange={handleChange}
+              >
+                <FormControlLabel value="expense" control={<Radio required />} name='transactionType' label="Despesa" />
+                <FormControlLabel value="income" control={<Radio required />} name='transactionType' label="Receita" />
+              </RadioGroup>
+            </FormControl>
 
-            <Button onClick={() => handleUnpayExpense(expense.id)}>
-              Remover Pagamento
+
+          {transaction.status === "pago" ?
+
+            <Button color="warning" variant='outlined' onClick={() => handleUnpayTransaction(transaction.id)}>
+              {unpayText}
             </Button>
             :
-            <Button onClick={() => handlePayExpense(expense.id)}>
-              Pagar
+            <Button color="success" variant='outlined' onClick={() => handlePayTransaction(transaction.id)}>
+              {payText}
             </Button>
             }
 
@@ -122,7 +141,7 @@ export const UpdateExpenseModal= ({ handleClose, open, expense }:any) => {
 
             <DialogActions>
               <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
-              <Button variant="contained" onClick={() => handleExclude(expense)} color= "error">Excluir</Button>
+              <Button variant="contained" onClick={() => handleExclude(transaction)} color= "error">Excluir</Button>
               <Button type="submit" variant="outlined">Atualizar</Button>
             </DialogActions>
           </Form>

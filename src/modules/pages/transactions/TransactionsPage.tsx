@@ -1,22 +1,22 @@
 import { useState } from "react";
 import Head from "next/head";
 
-import { useExpense, useBudget } from "@/modules/expenses";
-import styles from "./Expense.module.scss";
+import { useTransaction, useBudget } from "@/modules/transactions";
+import styles from "./Transaction.module.scss";
 import { Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
-import { CreateExpenseModal } from "./components/CreateExpenseModal";
+import { CreateTransactionModal } from "./components/CreateTransactionModal";
 import { BudgetSelect } from "./components/BudgetSelect";
 import { WarnModal } from "./components/WarnModal";
 import Router from 'next/router'
-import { ExpensesList } from "./components/ExpensesList";
+import { TransactionsList } from "./components/TransactionsList";
 import { MonthSelect } from "./components/MonthSelect";
 import { TotalValues } from "./components/TotalValues";
 
-export const ExpensesPage = () => {
+export const TransactionsPage = () => {
   const { selectedBudgetId } = useBudget()
-  const { expenses, setErrors } = useExpense()
+  const { transactions, setErrors } = useTransaction()
   const [open, setOpen] = useState(false);
   const [openWarn, setOpenWarn] = useState(false);
 
@@ -41,7 +41,7 @@ export const ExpensesPage = () => {
   return (
     <>
       <Head>
-        <title>Co-Finance - Expenses</title>
+        <title>Co-Finance - Transactions</title>
       </Head>
 
       <MonthSelect />
@@ -49,7 +49,7 @@ export const ExpensesPage = () => {
       <BudgetSelect />
 
       <div className={styles.content}>
-        <CreateExpenseModal open={open} onClose={handleClose}/>
+        <CreateTransactionModal open={open} onClose={handleClose}/>
         <WarnModal
           open={openWarn}
           title="Selecione um orçamento"
@@ -62,7 +62,7 @@ export const ExpensesPage = () => {
 
         <TotalValues />
 
-        <ExpensesList expenses={expenses} />
+        <TransactionsList transactions={transactions} />
 
         <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen}>
           <AddIcon color="primary"/>

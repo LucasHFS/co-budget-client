@@ -2,30 +2,31 @@ import { Form, Formik } from 'formik';
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@mui/material";
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { NumericFormat } from "react-number-format";
-import styles from "../Expense.module.scss";
+import styles from "../Transaction.module.scss";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useCreateExpenseModal } from '../hooks/useCreateExpenseModal';
+import { useCreateTransactionModal } from '../hooks/useCreateTransactionModal';
 
-export const CreateExpenseModal = ({open, onClose}: any) => {
-  const { handleClose, handleCreate, modifiedValue, expenseKinds, installmentKind, setPrice, price, requestErrors, setDueDate } = useCreateExpenseModal({onClose})
+export const CreateTransactionModal = ({open, onClose}: any) => {
+  const { handleClose, handleCreate, modifiedValue, transactionKinds, installmentKind, setPrice, price, requestErrors, setDueDate } = useCreateTransactionModal({onClose})
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle color="black">Nova Despesa</DialogTitle>
+      <DialogTitle color="black">Nova Transação</DialogTitle>
       <DialogContent className={styles.dialog_content}>
         <Formik
           initialValues={{
             name: '',
             kind: 'once',
+            transactionType: 'expense',
             installmentNumber: 1,
           }}
           onSubmit={handleCreate}
@@ -70,10 +71,10 @@ export const CreateExpenseModal = ({open, onClose}: any) => {
                 label="Data"
                 value={modifiedValue}
                 onChange={(newValue) => {
-//@ts-ignore
+                  //@ts-ignore
                   setDueDate(newValue?.format("DD/MM/YYYY"));
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField required {...params} />}
                 mask="__/__/____"
                 inputFormat="DD/MM/YYYY"
               />
@@ -98,8 +99,8 @@ export const CreateExpenseModal = ({open, onClose}: any) => {
                 value={values.kind}
                 className={styles.select}
               >
-                {expenseKinds.map((expense) => (
-                  <MenuItem key={`${expense.name}`} value={expense.value} className={styles.menuItem}>{expense.name}</MenuItem>
+                {transactionKinds.map((transaction) => (
+                  <MenuItem key={`${transaction.name}`} value={transaction.value} className={styles.menuItem}>{transaction.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -120,11 +121,25 @@ export const CreateExpenseModal = ({open, onClose}: any) => {
               />
             }
 
+            <FormControl>
+              <FormLabel>Tipo</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={values.transactionType}
+                onChange={handleChange}
+              >
+                <FormControlLabel value="expense" control={<Radio required />} name='transactionType' label="Despesa" />
+                <FormControlLabel value="income" control={<Radio required />} name='transactionType' label="Receita" />
+              </RadioGroup>
+            </FormControl>
+
               {requestErrors && <ErrorMessage messages={requestErrors} />}
 
               <DialogActions>
-                <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
                 <Button type="submit" variant="outlined">Cadastrar</Button>
+                <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
               </DialogActions>
             </Form>
           )}

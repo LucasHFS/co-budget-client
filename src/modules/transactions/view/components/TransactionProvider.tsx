@@ -8,40 +8,39 @@ import {
 } from "react";
 import { api } from "@/modules/infra/services/apiClient";
 import { formatedErrorsArray } from "@/modules/utils/request";
-import { Expense } from "../../domain/Expense";
+import { Transaction } from "../../domain/Transaction";
 import { useBudget } from "../hooks/useBudget";
 import { useAuth } from "@/modules/auth";
 import { formatDate } from "@/modules/utils/date";
 
-
-type ExpenseProviderValue = {
-  createExpense: any
-  updateExpense: any
-  deleteExpense: any
-  expenses: Expense[]
-  setExpenses: any
-  refetchExpenses: any
+type TransactionProviderValue = {
+  createTransaction: any
+  updateTransaction: any
+  deleteTransaction: any
+  transactions: Transaction[]
+  setTransactions: any
+  refetchTransactions: any
   selectedMonthDate: any,
   setSelectedMonthDate: any,
-  payExpense: any,
-  unpayExpense: any,
-  calculateTotalPayable: any
-  calculateBalanceToPay: any
+  payTransaction: any,
+  unpayTransaction: any,
+  calculateBalance: any,
+  calculateTotal: any,
   isLoading: boolean
   errors: string[]
   setErrors: any
 };
 
-export const ExpenseContext = createContext<ExpenseProviderValue | undefined>(
+export const TransactionContext = createContext<TransactionProviderValue | undefined>(
   undefined
 );
 
-type ExpenseContextProviderProps = {
+type TransactionContextProviderProps = {
   children: ReactNode;
 };
 
-export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
-  const [expenses, setExpenses] = useState([])
+export const TransactionProvider = ({ children }: TransactionContextProviderProps) => {
+  const [transactions, setTransactions] = useState<Transaction[]>([])
   const [selectedMonthDate, setSelectedMonthDate] = useState(new Date())
   const [isLoading, setisLoading] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -49,16 +48,16 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
 
   const { selectedBudgetId } = useBudget()
 
-  const fetchExpenses = useCallback(
+  const fetchTransactions = useCallback(
     () => {
       api
-        .get("/expenses", {params: {
+        .get("/transactions", {params: {
           budgetId: selectedBudgetId,
           selectedMonthDate: formatDate(selectedMonthDate),
         }})
         .then((response) => {
           const data = response.data
-          setExpenses(data.expenses);
+          setTransactions(data.transactions);
         })
         .catch((err) => {
           //@ts-ignore
@@ -70,39 +69,40 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
     },[selectedBudgetId, selectedMonthDate])
 
 
-  const refetchExpenses = useCallback(() => {
+  const refetchTransactions = useCallback(() => {
     setTimeout(function() {
-      fetchExpenses()
+      fetchTransactions()
     }, 400);
-  }, [fetchExpenses]);
+  }, [fetchTransactions]);
 
   useEffect(() => {
     if(!isAuthenticated){
       return
     }
     setisLoading(true);
-    refetchExpenses()
+    refetchTransactions()
     return () => setErrors([]);
-  }, [refetchExpenses, isAuthenticated]);
+  }, [refetchTransactions, isAuthenticated]);
 
-  const createExpense = useCallback(
-    async ({ dueAt, price, name, kind, installmentNumber, }: {dueAt: string, price: number, name: string, kind: string, installmentNumber: number }) =>  {
+  const createTransaction = useCallback(
+    async ({ dueAt, price, name, kind, transactionType, installmentNumber, }: {dueAt: string, price: number, name: string, kind: string, transactionType:string, installmentNumber: number }) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.post("/expenses", {
-            expense: {
+          const response = await api.post("/transactions", {
+            transaction: {
               dueAt,
               price: Number(price),
               name,
               kind,
+              transactionType,
               installmentNumber,
               budgetId: selectedBudgetId
             },
           });
 
           if (response.status === 201) {
-            refetchExpenses()
+            refetchTransactions()
 
             return true
           }
@@ -112,27 +112,28 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
           return false
         }
         setisLoading(false);
-      }, [selectedBudgetId, refetchExpenses])
+      }, [selectedBudgetId, refetchTransactions])
 
-  const updateExpense = useCallback(
-    async ({ id, dueAt, price, name, kind, installmentNumber, targetExpenses }: {id: number, dueAt: string, price: number, name: string, kind: string, installmentNumber: number, targetExpenses:string }) =>  {
+  const updateTransaction = useCallback(
+    async ({ id, dueAt, price, name, kind, transactionType, installmentNumber, targetTransactions }: {id: number, dueAt: string, price: number, name: string, kind: string, transactionType:string, installmentNumber: number, targetTransactions:string }) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.put(`/expenses/${id}`, {
-            expense: {
+          const response = await api.put(`/transactions/${id}`, {
+            transaction: {
               dueAt,
               price: Number(price),
               name,
               kind,
+              transactionType,
               installmentNumber,
               budgetId: selectedBudgetId,
-              targetExpenses,
+              targetTransactions,
             },
           });
 
           if (response.status === 200) {
-            refetchExpenses()
+            refetchTransactions()
 
             return true
           }
@@ -142,17 +143,17 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
           return false
         }
         setisLoading(false);
-      }, [refetchExpenses])
+      }, [refetchTransactions])
 
-  const deleteExpense = useCallback(
-    async ({ id, targetExpenses }: {id: number, targetExpenses: any}) =>  {
+  const deleteTransaction = useCallback(
+    async ({ id, targetTransactions }: {id: number, targetTransactions: any}) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.delete(`/expenses/${id}?targetExpenses=${targetExpenses}`);
+          const response = await api.delete(`/transactions/${id}?targetTransactions=${targetTransactions}`);
 
           if (response.status === 204) {
-            refetchExpenses()
+            refetchTransactions()
             return true
           }
         } catch (err) {
@@ -161,14 +162,14 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
           return false
         }
         setisLoading(false);
-  }, [refetchExpenses])
+  }, [refetchTransactions])
 
-  const payExpense = useCallback(
+  const payTransaction = useCallback(
     async (id: number) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.put(`/expenses/${id}/pay`, {});
+          const response = await api.put(`/transactions/${id}/pay`, {});
 
           if (response.status === 200) {
             return true
@@ -181,12 +182,12 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
         setisLoading(false);
   },[])
 
-  const unpayExpense = useCallback(
+  const unpayTransaction = useCallback(
     async (id: number) =>  {
       try {
           setisLoading(true);
 
-          const response = await api.put(`/expenses/${id}/unpay`, {});
+          const response = await api.put(`/transactions/${id}/unpay`, {});
 
           if (response.status === 200) {
             return true
@@ -199,51 +200,60 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
         setisLoading(false);
   },[])
 
-  const calculateTotalPayable = useCallback(() =>
-    expenses.reduce((acc, expense) => (acc + expense.price), 0)
-  , [expenses])
 
-  const calculateBalanceToPay = useCallback(() =>
-    expenses.reduce((acc, expense) => {
-        if(expense.status === 'Pago'){
-          return acc
+  const calculateTotal = useCallback((transactionType: 'expense'|'income') =>
+    transactions.reduce((acc, transaction) => {
+        if(transaction.transactionType === transactionType){
+          return acc + transaction.price
         } else {
-          return acc + expense.price
+          return acc
         }
       },0)
-    ,[expenses])
+    ,[transactions]
+  )
+
+  const calculateBalance = useCallback(() =>
+    transactions.reduce((acc, transaction) => {
+      if(transaction.status === 'pago'){
+          const value = transaction.transactionType === 'income' ? transaction.price : -transaction.price
+          return acc + value
+        } else {
+          return acc
+        }
+      },0)
+    ,[transactions])
 
   const value = useMemo(
     () => ({
-      expenses,
-      setExpenses,
-      refetchExpenses,
-      createExpense,
-      updateExpense,
-      deleteExpense,
+      transactions,
+      setTransactions,
+      refetchTransactions,
+      createTransaction,
+      updateTransaction,
+      deleteTransaction,
       selectedMonthDate,
       setSelectedMonthDate,
-      payExpense,
-      unpayExpense,
-      calculateTotalPayable,
-      calculateBalanceToPay,
+      payTransaction,
+      unpayTransaction,
+      calculateBalance,
+      calculateTotal,
       isLoading,
       errors,
       setErrors,
     }),
     [
-      expenses,
-      setExpenses,
-      refetchExpenses,
-      createExpense,
-      updateExpense,
-      deleteExpense,
+      transactions,
+      setTransactions,
+      refetchTransactions,
+      createTransaction,
+      updateTransaction,
+      deleteTransaction,
       selectedMonthDate,
       setSelectedMonthDate,
-      payExpense,
-      unpayExpense,
-      calculateTotalPayable,
-      calculateBalanceToPay,
+      payTransaction,
+      unpayTransaction,
+      calculateBalance,
+      calculateTotal,
       isLoading,
       errors,
       setErrors,
@@ -252,6 +262,6 @@ export const ExpenseProvider = ({ children }: ExpenseContextProviderProps) => {
 
   return (
     //@ts-ignore
-    <ExpenseContext.Provider value={value}>{children}</ExpenseContext.Provider>
+    <TransactionContext.Provider value={value}>{children}</TransactionContext.Provider>
   );
 };

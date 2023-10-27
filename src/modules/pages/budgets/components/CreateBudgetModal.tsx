@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { Formik } from 'formik';
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
-import { useBudget } from '@/modules/expenses';
+import { useBudget } from '@/modules/transactions';
 import styles from "../Budget.module.scss";
 import { useBudgetBox } from "../hooks/useBudgetBox";
 

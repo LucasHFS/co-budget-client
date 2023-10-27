@@ -1,10 +1,3 @@
-.title {
-  text-align: center;
-  font-weight: 600;
-  font-size: medium;
-  margin-bottom: 10px;
-}
-
 .box {
   padding: 12px;
   background-color: var(--background-floor-1);
@@ -39,11 +32,30 @@
   background-color: #464651;
   outline: 1px solid var(--text-secondary);
 }
-.box.paid {
-  background-color: #54b479;
+
+.paid {
+  background-color: var(--color-success);
+  border-radius: 4px;
+  width: auto;
+  text-align: center;
+
+  margin-bottom: 10px;
 }
-.box.overdue {
-  background-color: #b6504d;
+.overdue {
+  background-color: var(--color-danger);
+  border-radius: 4px;
+  width: auto;
+  text-align: center;
+
+  margin-bottom: 10px;
+}
+
+.expense {
+  color: var(--color-danger);
+}
+
+.income {
+  color: var(--color-success);
 }
 
 .form {

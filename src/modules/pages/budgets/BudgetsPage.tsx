@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Head from "next/head";
 
 import { BudgetsList } from "./components/BudgetsList";
-import { useBudget } from "@/modules/expenses";
+import { useBudget } from "@/modules/transactions";
 import styles from "./Budget.module.scss";
 import { CreateBudgetModal } from "./components/CreateBudgetModal";
 import { Fab } from "@mui/material";

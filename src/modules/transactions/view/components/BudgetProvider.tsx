@@ -8,7 +8,7 @@ import {
 } from "react";
 import { api } from "@/modules/infra/services/apiClient";
 import { formatedErrorsArray } from "@/modules/utils/request";
-import { Budget } from "@/modules/expenses/domain/Budget";
+import { Budget } from "@/modules/transactions/domain/Budget";
 import { useAuth } from "@/modules/auth";
 
 type BudgetProviderValue = {
@@ -28,11 +28,11 @@ export const BudgetContext = createContext<BudgetProviderValue | undefined>(
   undefined
 );
 
-type ExpenseContextProviderProps = {
+type TransactionContextProviderProps = {
   children: ReactNode;
 };
 
-export const BudgetProvider = ({ children }: ExpenseContextProviderProps) => {
+export const BudgetProvider = ({ children }: TransactionContextProviderProps) => {
   const [budgets, setBudgets] = useState<Budget[]>([])
   //@ts-ignore
   const [selectedBudgetId, setSelectedBudgetId] = useState<Budget | undefined>(() => {

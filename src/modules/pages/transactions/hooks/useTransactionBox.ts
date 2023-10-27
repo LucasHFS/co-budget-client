@@ -1,7 +1,7 @@
-import { useExpense } from "@/modules/expenses";
+import { useTransaction } from "@/modules/transactions";
 import { useState } from "react";
 
-export const useExpenseBox = () => {
+export const useTransactionBox = () => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -13,7 +13,7 @@ export const useExpenseBox = () => {
     setErrors([])
   };
 
-  const { setErrors } = useExpense()
+  const { setErrors } = useTransaction()
 
   return {
     handleClickOpen,

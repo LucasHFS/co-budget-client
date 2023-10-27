@@ -1,6 +1,6 @@
 @import "../../styles/breakpoints.scss";
 
-.content * {
+.content  {
   color: var(--text-primary);
 }
 
@@ -23,6 +23,10 @@
 	position:fixed !important;
 	bottom:40px;
 	right:40px;
+}
+
+.floating_button * {
+  color: var(--text-primary);
 }
 
 .form {
