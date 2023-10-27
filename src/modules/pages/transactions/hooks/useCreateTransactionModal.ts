@@ -28,9 +28,7 @@ export const useCreateTransactionModal = ({onClose}: any) => {
       dueAt,
       price,
     }
-    console.log({data})
     const success = await createTransaction(data);
-    console.log({success})
 
     if(success){
       handleClose()
