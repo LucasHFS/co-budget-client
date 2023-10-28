@@ -5,7 +5,7 @@ import { AuthTokenError } from "@/modules/infra/services/errors/AuthTokenError"
 export function withSSRAuth(fn: GetServerSideProps) {
     return async (ctx: GetServerSidePropsContext) => {
         const cookies = parseCookies(ctx)
-        if (!cookies['marmitex.token']) {
+        if (!cookies['co-budget.token']) {
             return {
                 redirect: {
                     destination: '/login',
@@ -18,7 +18,7 @@ export function withSSRAuth(fn: GetServerSideProps) {
         } catch (error) {
             if (error instanceof AuthTokenError) {
                 console.log(error)
-                destroyCookie(ctx, 'marmitex.token')
+                destroyCookie(ctx, 'co-budget.token')
 
                 return {
                     redirect: {
