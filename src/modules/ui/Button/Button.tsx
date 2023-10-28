@@ -10,6 +10,7 @@ export type ButtonProps = {
 
 export const Button = ({ children, ...props }: ButtonProps) => {
   return (
+    // @ts-ignore
     <MuiButton
       {...props}
       className={styles.button}

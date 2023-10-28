@@ -143,7 +143,7 @@ export const TransactionProvider = ({ children }: TransactionContextProviderProp
           return false
         }
         setisLoading(false);
-      }, [refetchTransactions])
+      }, [refetchTransactions, selectedBudgetId])
 
   const deleteTransaction = useCallback(
     async ({ id, targetTransactions }: {id: number, targetTransactions: any}) =>  {

@@ -40,3 +40,6 @@ package-lock.json
 
 # Local Netlify folder
 .netlify
+
+# Sentry Config File
+.sentryclirc
