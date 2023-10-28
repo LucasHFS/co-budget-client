@@ -34,7 +34,7 @@ export const BudgetsPage = () => {
         {!!budgets.length && <BudgetsList budgets={budgets}/>}
 
         <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen}>
-          <AddIcon color="white"/>
+          <AddIcon/>
         </Fab>
       </div>
     </>
