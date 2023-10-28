@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
   const isAuthenticated = !!Object.keys(user).length;
 
   function authenticateUser({ username, id, token }: {username:string, id:string, token:string}) {
-    setCookie(undefined, "co-budget.token", token, {
+    setCookie(undefined, "marmitex.token", token, {
       maxAge: 60 * 60 * 24 * 30,
       path: "/",
     });
@@ -103,14 +103,14 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
       }, [router])
 
   const signOut = useCallback(() => {
-    destroyCookie(undefined, "co-budget.token");
+    destroyCookie(undefined, "marmitex.token");
     setUser({});
     router.push('/budgets')
 
   }, [router]);
 
   useEffect(() => {
-    const { "co-budget.token": token } = parseCookies();
+    const { "marmitex.token": token } = parseCookies();
 
     if (token) {
       setisLoading(true);
