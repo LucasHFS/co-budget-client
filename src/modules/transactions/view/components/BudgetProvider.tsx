@@ -58,13 +58,14 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
   }, [selectedBudgetId]);
 
   const createBudget = useCallback(
-    async ({ name }: Budget) =>  {
+    async ({ name, date }: Budget) =>  {
       try {
           setisLoading(true);
 
           const response = await api.post("/budgets", {
             budget: {
               name,
+              date,
             },
           });
 
@@ -76,6 +77,7 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
               {
                 id: budget.id,
                 name: budget.name,
+                date: budget.date,
               }
             ]);
             return true
@@ -89,13 +91,14 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
     }, [])
 
   const updateBudget = useCallback(
-    async ({ id, name }: Budget) =>  {
+    async ({ id, name, date }: Budget) =>  {
       try {
           setisLoading(true);
 
           const response = await api.put(`/budgets/${id}`, {
             budget: {
               name,
+              date,
             },
           });
 
@@ -108,6 +111,7 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
                   return {
                     id: budget.id,
                     name: budget.name,
+                    date: budget.date,
                   }
                 } else {
                   return budg;
