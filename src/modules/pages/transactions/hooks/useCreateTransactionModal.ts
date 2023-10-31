@@ -7,7 +7,7 @@ export const useCreateTransactionModal = ({onClose}: any) => {
   const [dueAt, setDueDate] = useState(moment(new Date()).format("DD/MM/YYYY"));
 
   const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
-  const { errors: requestErrors, createTransaction, refetchTransactions } = useTransaction()
+  const { errors: requestErrors, createTransaction } = useTransaction()
 
   const transactionKinds = [
     { value: 'once', name: 'Única' },
@@ -31,6 +31,8 @@ export const useCreateTransactionModal = ({onClose}: any) => {
     const success = await createTransaction(data);
 
     if(success){
+      setPrice('')
+      setDueDate(moment(new Date()).format("DD/MM/YYYY"))
       handleClose()
     }
 
