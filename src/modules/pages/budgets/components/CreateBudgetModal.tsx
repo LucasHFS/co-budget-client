@@ -55,7 +55,7 @@ export const CreateBudgetModal = ({open, onClose}:any) => {
 
             <DialogActions>
               <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
-              <Button type="submit" variant="outlined">Cadastrar</Button>
+              <Button type="submit" variant="outlined">Criar</Button>
             </DialogActions>
           </form>
         )}
