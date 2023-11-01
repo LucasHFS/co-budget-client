@@ -33,8 +33,8 @@ export const TotalValues = () => {
           <NumericFormat
               className={cx(
                 {
-                  [styles.positive]: expectedBalance > 0,
-                  [styles.negative]: expectedBalance < 0,
+                  [styles.positive]: balance > 0,
+                  [styles.negative]: balance < 0,
                 }
               )}
               prefix="R$  "

@@ -138,8 +138,8 @@ export const CreateTransactionModal = ({open, onClose}: any) => {
               {requestErrors && <ErrorMessage messages={requestErrors} />}
 
               <DialogActions>
-                <Button type="submit" variant="outlined">Cadastrar</Button>
                 <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
+                <Button type="submit" variant="outlined">Criar</Button>
               </DialogActions>
             </Form>
           )}
