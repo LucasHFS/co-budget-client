@@ -3,7 +3,6 @@ import {
   ReactNode,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
@@ -105,7 +104,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
   const signOut = useCallback(() => {
     destroyCookie(undefined, "co-budget.token");
     setUser({});
-    router.push('/budgets')
+    router.push('/login')
 
   }, [router]);
 
@@ -131,8 +130,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
     return () => setErrors([]);
   }, [signOut]);
 
-  const value = useMemo(
-    () => ({
+  const value = {
       signIn,
       signUp,
       signOut,
@@ -140,17 +138,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
       user,
       isLoading,
       errors,
-    }),
-    [
-      signIn,
-      signUp,
-      signOut,
-      isAuthenticated,
-      user,
-      isLoading,
-      errors,
-    ]
-  );
+  }
 
   return (
     //@ts-ignore
