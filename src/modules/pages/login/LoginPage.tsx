@@ -30,7 +30,6 @@ export const LoginPage = () => {
             type='email'
             value={formik.values.email}
             onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             autoFocus
             required
           />
@@ -41,8 +40,7 @@ export const LoginPage = () => {
             type='password'
             value={formik.values.password}
             onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            minLength='6'
+            inputProps={{ minLength: 6, maxLength: 20 }}
             required
           />
 

@@ -26,7 +26,6 @@ export const RegisterPage = () => {
             name="username"
             value={formik.values.username}
             onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             autoFocus
             required
           />
@@ -36,7 +35,6 @@ export const RegisterPage = () => {
             name="email"
             value={formik.values.email}
             onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             type='email'
             required
           />
@@ -46,9 +44,8 @@ export const RegisterPage = () => {
             name="password"
             value={formik.values.password}
             onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
             type='password'
-            minLength='6'
+            inputProps={{ minLength: 6, maxLength: 20 }}
             required
           />
 

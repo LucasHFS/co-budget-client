@@ -11,6 +11,8 @@ import { toastSuccess } from "@/modules/utils/toastify";
 import { useRouter } from 'next/router'
 import { formatedErrorsArray } from "@/modules/utils/request";
 import { User } from "../../domain/User";
+import signInRequest from "@/modules/infra/http/signInRequest";
+import signUpRequest from "@/modules/infra/http/signUpRequest";
 
 
 type AuthProviderValue = {
@@ -56,15 +58,10 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
 
   const signIn = useCallback(
       async ({ email, password }: {email:string, password: string}) => {
-        try {
-          setisLoading(true);
+        setisLoading(true);
 
-          const response = await api.post("users/login", {
-            user: {
-              email,
-              password,
-            },
-          });
+        try {
+          const response = await signInRequest({ email, password });
 
           authenticateUser(response.data.user);
           router.push('/budgets')
@@ -72,6 +69,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
           //@ts-ignore
           setErrors(formatedErrorsArray(err));
         }
+
         setisLoading(false);
     }, [router])
 
@@ -80,13 +78,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
       try {
           setisLoading(true);
 
-          const response = await api.post("/users", {
-            user: {
-              username,
-              email,
-              password,
-            },
-          });
+          const response = await signUpRequest({ email, username, password })
 
           if (response.status === 200) {
             toastSuccess("Account Created!");
