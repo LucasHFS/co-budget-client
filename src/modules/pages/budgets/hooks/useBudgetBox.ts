@@ -3,11 +3,13 @@ import { useConfirm } from "material-ui-confirm";
 import { useState } from "react";
 import { useRouter } from 'next/router'
 import { useUpdateBudget } from "@/modules/transactions/view/hooks/useUpdateBudget";
+import { useDeleteBudget } from "@/modules/transactions/view/hooks/useDeleteBudget";
 
 export const useBudgetBox = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const { deleteBudget, setErrors, setSelectedBudgetId } = useBudget()
+  const { setErrors, setSelectedBudgetId } = useBudget()
+  const { deleteBudget } = useDeleteBudget()
   const { updateBudget, isLoading, errors: requestErrors} = useUpdateBudget()
 
   const confirm = useConfirm();

@@ -12,7 +12,6 @@ import { Budget } from "@/modules/transactions/domain/Budget";
 import { useAuth } from "@/modules/auth";
 
 type BudgetProviderValue = {
-  deleteBudget: any
   budgets: Budget[]
   setBudgets: any
   selectedBudgetId: any
@@ -55,28 +54,6 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
     }
   }, [selectedBudgetId]);
 
-  const deleteBudget = useCallback(
-    async ({ id }: {id: number}) =>  {
-      try {
-          setisLoading(true);
-
-          const response = await api.delete(`/budgets/${id}`);
-
-          if (response.status === 204) {
-            const budgetsWithoutDeleted = budgets.filter((budget)=> id !== budget.id)
-            setBudgets(budgetsWithoutDeleted)
-
-            return true
-          }
-        } catch (err) {
-          //@ts-ignore
-          setErrors(formatedErrorsArray(err));
-          return false
-        }
-        setisLoading(false);
-  }, [budgets])
-
-
   useEffect(() => {
     if(!isAuthenticated){
       return
@@ -99,7 +76,6 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
 
   const value = useMemo(
     () => ({
-      deleteBudget,
       budgets,
       setBudgets,
       selectedBudgetId,
@@ -109,7 +85,6 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
       setErrors,
     }),
     [
-      deleteBudget,
       budgets,
       setBudgets,
       selectedBudgetId,
