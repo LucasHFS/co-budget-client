@@ -11,8 +11,7 @@ export const useAuth = () => {
   }
 
   const {
-    signIn,
-    signUp,
+    authenticateUser,
     signOut,
     isAuthenticated,
     user,
@@ -21,8 +20,7 @@ export const useAuth = () => {
   } = value;
 
   return {
-    signIn,
-    signUp,
+    authenticateUser,
     signOut,
     isAuthenticated,
     user,

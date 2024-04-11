@@ -1,11 +1,11 @@
 import { Button, TextField } from "@mui/material";
 import styles from "./Register.module.scss";
 import { useFormik } from "formik";
-import { useAuth } from "@/modules/auth";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
+import { useSignUp } from "@/modules/auth/view/hooks/useSignUp";
 
 export const RegisterPage = () => {
-  const { signUp, isLoading, errors } = useAuth();
+  const { signUp, isLoading, errors } = useSignUp();
 
   const formik = useFormik({
     initialValues: {

@@ -2,11 +2,11 @@ import Head from "next/head";
 import { Button, TextField } from "@mui/material";
 import styles from "./Login.module.scss";
 import { useFormik } from "formik";
-import { useAuth } from "@/modules/auth";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
+import { useSignIn } from "@/modules/auth/view/hooks/useSignIn";
 
 export const LoginPage = () => {
-  const { signIn, isLoading, errors } = useAuth();
+  const { signIn, isLoading, errors } = useSignIn();
 
   const formik = useFormik({
     initialValues: {

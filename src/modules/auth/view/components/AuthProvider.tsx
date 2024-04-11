@@ -7,20 +7,15 @@ import {
 } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { api } from "@/modules/infra/services/apiClient";
-import { toastSuccess } from "@/modules/utils/toastify";
 import { useRouter } from 'next/router'
-import { formatedErrorsArray } from "@/modules/utils/request";
 import { User } from "../../domain/User";
-import signInRequest from "@/modules/infra/http/signInRequest";
-import signUpRequest from "@/modules/infra/http/signUpRequest";
-
+import fetchCurrentUserRequest from "@/modules/infra/http/fetchCurrentUserRequest";
 
 type AuthProviderValue = {
-  signIn: any
-  signUp: any
-  signOut: any
+  authenticateUser: (userData: { username: string; id: string; token: string }) => void;
+  signOut: ()=> void;
   isAuthenticated: boolean
-  user: User
+  user: User | {}
   isLoading: boolean
   errors: string[]
 };
@@ -56,43 +51,6 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
     api.defaults.headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const signIn = useCallback(
-      async ({ email, password }: {email:string, password: string}) => {
-        setisLoading(true);
-
-        try {
-          const response = await signInRequest({ email, password });
-
-          authenticateUser(response.data.user);
-          router.push('/budgets')
-        } catch (err) {
-          //@ts-ignore
-          setErrors(formatedErrorsArray(err));
-        }
-
-        setisLoading(false);
-    }, [router])
-
-  const signUp = useCallback(
-    async ({email, username, password}: {email:string,username:string,password:string}) =>  {
-      try {
-          setisLoading(true);
-
-          const response = await signUpRequest({ email, username, password })
-
-          if (response.status === 200) {
-            toastSuccess("Account Created!");
-
-            authenticateUser(response.data.user);
-            router.push('/budgets')
-          }
-        } catch (err) {
-          //@ts-ignore
-          setErrors(formatedErrorsArray(err));
-        }
-        setisLoading(false);
-      }, [router])
-
   const signOut = useCallback(() => {
     destroyCookie(undefined, "co-budget.token");
     setUser({});
@@ -104,27 +62,30 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
     const { "co-budget.token": token } = parseCookies();
 
     if (token) {
-      setisLoading(true);
-      api
-        .get("/user")
-        .then((response) => {
-          const { id, username } = response.data.user;
-
-          setUser({ id, username });
-        })
-        .catch(() => {
-          signOut();
-        })
-        .finally(() => {
-          setisLoading(false);
-        });
+      fetchCurrentUser()
     }
     return () => setErrors([]);
   }, [signOut]);
 
+  const fetchCurrentUser = () => {
+    setisLoading(true);
+
+    fetchCurrentUserRequest()
+      .then((response) => {
+        const { id, username } = response.data.user;
+
+        setUser({ id, username });
+      })
+      .catch(() => {
+        signOut();
+      })
+      .finally(() => {
+        setisLoading(false);
+      });
+  }
+
   const value = {
-      signIn,
-      signUp,
+      authenticateUser,
       signOut,
       isAuthenticated,
       user,
@@ -133,7 +94,6 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
   }
 
   return (
-    //@ts-ignore
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
 };
