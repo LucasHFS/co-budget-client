@@ -1,15 +1,14 @@
 import {
   createContext,
   ReactNode,
-  useCallback,
   useEffect,
   useMemo,
   useState,
 } from "react";
-import { api } from "@/modules/infra/services/apiClient";
 import { formatedErrorsArray } from "@/modules/utils/request";
 import { Budget } from "@/modules/transactions/domain/Budget";
 import { useAuth } from "@/modules/auth";
+import fetchBudgetsRequest from "@/modules/infra/http/fetchBudgetsRequest";
 
 type BudgetProviderValue = {
   budgets: Budget[]
@@ -43,6 +42,22 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
   const [errors, setErrors] = useState([]);
   const {isAuthenticated} = useAuth()
 
+  const fetchBudgets = () => {
+    setisLoading(true);
+    fetchBudgetsRequest()
+      .then((response) => {
+        setBudgets(response.data.budgets);
+      })
+      .catch((err) => {
+        //@ts-ignore
+        setErrors(formatedErrorsArray(err));
+      })
+      .finally(() => {
+        setisLoading(false);
+      });
+  }
+
+
   useEffect(() => {
     try {
       if(selectedBudgetId){
@@ -55,22 +70,10 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
   }, [selectedBudgetId]);
 
   useEffect(() => {
-    if(!isAuthenticated){
-      return
+    if(isAuthenticated){
+      fetchBudgets()
     }
-    setisLoading(true);
-    api
-      .get("/budgets")
-      .then((response) => {
-        setBudgets(response.data.budgets);
-      })
-      .catch((err) => {
-          //@ts-ignore
-        setErrors(formatedErrorsArray(err));
-      })
-      .finally(() => {
-        setisLoading(false);
-      });
+
     return () => setErrors([]);
   }, [isAuthenticated]);
 
