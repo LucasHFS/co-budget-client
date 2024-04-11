@@ -1,13 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { Formik } from 'formik';
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
-import { useBudget } from '@/modules/transactions';
 import styles from "../Budget.module.scss";
-import { useBudgetBox } from "../hooks/useBudgetBox";
+import { useCreateBudget } from "@/modules/transactions/view/hooks/useCreateBudget";
 
 export const CreateBudgetModal = ({open, onClose}:any) => {
-  const { createBudget, errors: requestErrors } = useBudget()
-  const { handleSelectedBudgetId } = useBudgetBox()
+  const { createBudget, isLoading, errors: requestErrors} = useCreateBudget()
 
   const handleClose = () =>{
     onClose()
@@ -20,12 +18,12 @@ export const CreateBudgetModal = ({open, onClose}:any) => {
 
     if(success){
       handleClose()
-      // TODO: fetch the id of the created budget
-      // handleSelectedBudgetId()
     }
 
     setSubmitting(false);
   }
+
+  const submitText = isLoading ? 'Criando...' : 'Criar'
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -48,6 +46,7 @@ export const CreateBudgetModal = ({open, onClose}:any) => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.name}
+              autoFocus
               required
             />
 
@@ -55,7 +54,7 @@ export const CreateBudgetModal = ({open, onClose}:any) => {
 
             <DialogActions>
               <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
-              <Button type="submit" variant="outlined">Criar</Button>
+              <Button type="submit" variant="outlined">{submitText}</Button>
             </DialogActions>
           </form>
         )}
