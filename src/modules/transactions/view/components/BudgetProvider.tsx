@@ -12,7 +12,6 @@ import { Budget } from "@/modules/transactions/domain/Budget";
 import { useAuth } from "@/modules/auth";
 
 type BudgetProviderValue = {
-  updateBudget: any
   deleteBudget: any
   budgets: Budget[]
   setBudgets: any
@@ -55,42 +54,6 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
       console.log(error);
     }
   }, [selectedBudgetId]);
-
-  const updateBudget = useCallback(
-    async ({ id, name }: Budget) =>  {
-      try {
-          setisLoading(true);
-
-          const response = await api.put(`/budgets/${id}`, {
-            budget: {
-              name,
-            },
-          });
-
-          if (response.status === 200) {
-            const budget = response.data.budget
-
-            setBudgets(prevBudgets => {
-              return prevBudgets.map((budg)=>{
-                if(budg.id === budget.id){
-                  return {
-                    id: budget.id,
-                    name: budget.name,
-                  }
-                } else {
-                  return budg;
-                }
-              })
-            });
-            return true
-          }
-        } catch (err) {
-          //@ts-ignore
-          setErrors(formatedErrorsArray(err));
-          return false
-        }
-        setisLoading(false);
-  }, [])
 
   const deleteBudget = useCallback(
     async ({ id }: {id: number}) =>  {
@@ -136,7 +99,6 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
 
   const value = useMemo(
     () => ({
-      updateBudget,
       deleteBudget,
       budgets,
       setBudgets,
@@ -147,7 +109,6 @@ export const BudgetProvider = ({ children }: TransactionContextProviderProps) =>
       setErrors,
     }),
     [
-      updateBudget,
       deleteBudget,
       budgets,
       setBudgets,

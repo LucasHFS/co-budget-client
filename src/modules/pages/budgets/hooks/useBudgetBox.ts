@@ -2,11 +2,13 @@ import { useBudget } from "@/modules/transactions";
 import { useConfirm } from "material-ui-confirm";
 import { useState } from "react";
 import { useRouter } from 'next/router'
+import { useUpdateBudget } from "@/modules/transactions/view/hooks/useUpdateBudget";
 
 export const useBudgetBox = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const { updateBudget, deleteBudget, errors: requestErrors, setErrors, setSelectedBudgetId } = useBudget()
+  const { deleteBudget, setErrors, setSelectedBudgetId } = useBudget()
+  const { updateBudget, isLoading, errors: requestErrors} = useUpdateBudget()
 
   const confirm = useConfirm();
 
@@ -56,6 +58,7 @@ export const useBudgetBox = () => {
     handleUpdate,
     requestErrors,
     handleExclude,
+    isLoading,
     open,
     handleSelectedBudgetId,
   }

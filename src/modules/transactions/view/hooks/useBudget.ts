@@ -11,7 +11,6 @@ export const useBudget = () => {
   }
 
   const {
-    updateBudget,
     deleteBudget,
     budgets,
     setBudgets,
@@ -23,7 +22,6 @@ export const useBudget = () => {
   } = value;
 
   return {
-    updateBudget,
     deleteBudget,
     budgets,
     setBudgets,
