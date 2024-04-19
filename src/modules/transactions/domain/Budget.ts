@@ -1,4 +1,4 @@
 export type Budget = {
   id?: number
-  name?: string
+  name: string
 };

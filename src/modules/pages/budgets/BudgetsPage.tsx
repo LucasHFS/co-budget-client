@@ -8,6 +8,15 @@ import styles from "./Budget.module.scss";
 import { CreateBudgetModal } from "./components/CreateBudgetModal";
 import { Fab } from "@mui/material";
 
+const EmptyState = () => {
+  return (
+    <div className={styles.emptyState}>
+      <h2>Você ainda não possui nenhum orçamento</h2>
+      <p>Crie um orçamento para começar a controlar suas finanças</p>
+    </div>
+  )
+}
+
 export const BudgetsPage = () => {
   const { budgets, setErrors } = useBudget()
 
@@ -31,7 +40,7 @@ export const BudgetsPage = () => {
       <div className={styles.content}>
         <CreateBudgetModal open={open} onClose={handleClose}/>
 
-        {!!budgets.length && <BudgetsList budgets={budgets}/>}
+        { budgets.length ? <BudgetsList budgets={budgets}/> : <EmptyState/> }
 
         <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen}>
           <AddIcon/>
