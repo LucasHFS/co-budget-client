@@ -7,8 +7,8 @@ import {
 import { Budget } from "@/modules/transactions/domain/Budget";
 
 type BudgetProviderValue = {
-  selectedBudgetId: any
-  setSelectedBudgetId: any
+  selectedBudgetId: number
+  setSelectedBudgetId: (budgetId: number) => void
 };
 
 export const BudgetContext = createContext<BudgetProviderValue | undefined>(

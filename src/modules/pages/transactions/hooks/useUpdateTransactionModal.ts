@@ -1,15 +1,27 @@
 import { useState } from "react";
 import moment from "moment";
 import { parseDate } from "@/modules/utils/date";
-import { Transaction } from "@/modules/transactions/domain/Transaction";
-import { useTransaction } from "@/modules/transactions";
+import { useBudget } from "@/modules/transactions";
 import { useConfirm } from "material-ui-confirm";
+import useUpdateTransaction from "@/modules/transactions/view/hooks/useUpdateTransaction";
+import useDeleteTransaction from "@/modules/transactions/view/hooks/useDeleteTransaction";
+import usePayTransaction from "@/modules/transactions/view/hooks/usePayTransaction";
+import useUnpayTransaction from "@/modules/transactions/view/hooks/useUnpayTransaction";
 
 export const useUpdateTransactionModal = ({transaction, handleClose}: any) => {
   const [price, setPrice] = useState(transaction.price)
-  const { updateTransaction, errors: requestErrors, payTransaction, unpayTransaction, refetchTransactions } = useTransaction()
+  const { payTransaction } = usePayTransaction({onSuccess: handleClose})
+  const { unPayTransaction } = useUnpayTransaction({onSuccess: handleClose})
   const [dueAt, setDueAt] = useState(() => parseDate(transaction.dueAt));
 
+  const { deleteTransaction} = useDeleteTransaction({onSuccess: handleClose})
+  const { selectedBudgetId } = useBudget()
+
+  const onSuccess = () => {
+    handleClose()
+  }
+
+  const { updateTransaction } = useUpdateTransaction({ onSuccess })
   //@ts-ignore
   const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
 
@@ -25,46 +37,32 @@ export const useUpdateTransactionModal = ({transaction, handleClose}: any) => {
       ...values,
       id: transaction.id,
       dueAt,
-      price,
+      price: Number(price),
+      budgetId: selectedBudgetId,
     }
 
-    const success = await updateTransaction(data);
-
-    if(success){
-      handleClose()
-    }
-
+    await updateTransaction(data);
     setSubmitting(false);
   }
-
-  const { deleteTransaction, setErrors } = useTransaction()
 
   const confirm = useConfirm();
   // @ts-ignore
   const handleExclude = async (transaction) => {
     confirm({ title: 'Tem certeza?', description: 'Essa ação excluira a despesa', titleProps: { color: 'black'}})
       .then(async()=>{
-        const success = await deleteTransaction({id: transaction.id, targetTransactions: 'one'});
-
-        if(success){
-          handleClose()
-        }
+        await deleteTransaction({id: transaction.id, targetTransactions: 'one'});
       })
     .catch((err) => {
       console.log(err)
     });
   }
 
-  const handlePayTransaction = (id: number) => {
-    payTransaction(id)
-    refetchTransactions()
-    handleClose()
+  const handlePayTransaction = async (id: number) => {
+    await payTransaction(id)
   };
 
-  const handleUnpayTransaction = (id: number) => {
-    unpayTransaction(id)
-    refetchTransactions()
-    handleClose()
+  const handleUnpayTransaction = async (id: number) => {
+    await unPayTransaction(id)
   };
 
   return {
@@ -76,7 +74,6 @@ export const useUpdateTransactionModal = ({transaction, handleClose}: any) => {
     targetTransactionOptions,
     handleUnpayTransaction,
     handlePayTransaction,
-    requestErrors,
     handleExclude,
   }
 }

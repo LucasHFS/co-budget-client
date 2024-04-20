@@ -12,7 +12,7 @@ import { User } from "../../domain/User";
 import fetchCurrentUserRequest from "@/modules/infra/http/fetchCurrentUserRequest";
 
 type AuthProviderValue = {
-  authenticateUser: (userData: { username: string; id: string; token: string }) => void;
+  authenticateUser: (userData: { username: string; id: number; token: string }) => void;
   signOut: ()=> void;
   isAuthenticated: boolean
   user: User | {}
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
 
   const isAuthenticated = !!Object.keys(user).length;
 
-  function authenticateUser({ username, id, token }: {username:string, id:string, token:string}) {
+  function authenticateUser({ username, id, token }: {username:string, id:number, token:string}) {
     setCookie(undefined, "co-budget.token", token, {
       maxAge: 60 * 60 * 24 * 30,
       path: "/",
