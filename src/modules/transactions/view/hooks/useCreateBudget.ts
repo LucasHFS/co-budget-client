@@ -1,4 +1,4 @@
-import createBudgetRequest from "@/modules/infra/http/createBudgetRequest";
+import { createBudgetRequest } from "@/modules/infra/http/createBudgetRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toastError } from "@/modules/utils/toastify";
 

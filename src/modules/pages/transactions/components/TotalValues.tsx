@@ -1,9 +1,8 @@
-import { useTransaction } from "@/modules/transactions"
 import { NumericFormat } from "react-number-format"
 import styles from "./TotalValues.module.scss";
 import cx from "classnames";
 import { Transaction } from "@sentry/nextjs/types/client";
-import useCalculateTotals from "@/modules/transactions/view/hooks/useCalculateTotals";
+import { useCalculateTotals } from "@/modules/transactions/view/hooks/useCalculateTotals";
 
 export const TotalValues = ({transactions}: { transactions: Transaction[]}) => {
   const { calculateBalance, calculateTotal } = useCalculateTotals({transactions})

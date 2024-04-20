@@ -1,6 +1,6 @@
 import { useState } from "react";
 import moment from "moment";
-import useCreateTransaction from "@/modules/transactions/view/hooks/useCreateTransaction";
+import { useCreateTransaction } from "@/modules/transactions/view/hooks/useCreateTransaction";
 
 export const useCreateTransactionModal = ({onClose}: any) => {
   const [price, setPrice] = useState('')

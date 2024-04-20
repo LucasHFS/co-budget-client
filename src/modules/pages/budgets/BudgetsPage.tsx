@@ -6,7 +6,7 @@ import { BudgetsList } from "./components/BudgetsList";
 import styles from "./Budget.module.scss";
 import { CreateBudgetModal } from "./components/CreateBudgetModal";
 import { Fab } from "@mui/material";
-import useFetchBudgets from "@/modules/transactions/view/hooks/useFetchBudgets";
+import { useFetchBudgets } from "@/modules/transactions/view/hooks/useFetchBudgets";
 
 const EmptyState = () => {
   return (

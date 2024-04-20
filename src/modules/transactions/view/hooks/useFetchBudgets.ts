@@ -1,9 +1,9 @@
-import fetchBudgetsRequest from "@/modules/infra/http/fetchBudgetsRequest"
+import { fetchBudgetsRequest } from "@/modules/infra/http/fetchBudgetsRequest"
 import { useQuery } from "@tanstack/react-query"
 import { useEffect } from "react"
 import { toastError } from "@/modules/utils/toastify";
 
-const useFetchBudgets = () => {
+export const useFetchBudgets = () => {
   const { data, isFetching, error } = useQuery({
     queryKey: ['budgets'],
     queryFn: () => fetchBudgetsRequest(),
@@ -20,5 +20,3 @@ const useFetchBudgets = () => {
     isLoading: isFetching,
   }
 }
-
-export default useFetchBudgets;

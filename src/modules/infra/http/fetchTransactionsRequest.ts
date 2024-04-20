@@ -5,8 +5,7 @@ type FetchTransactionsParams = {
   selectedMonthDate: Date;
 }
 
-const fetchTransactionsRequest = async (params: FetchTransactionsParams) => {
+export const fetchTransactionsRequest = async (params: FetchTransactionsParams) => {
   return api.get("/transactions", { params })
 }
 
-export default fetchTransactionsRequest;

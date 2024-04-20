@@ -5,7 +5,7 @@ import { useTransaction } from "./useTransaction";
 import { formatDate } from "@/modules/utils/date";
 import { toastError } from "@/modules/utils/toastify";
 
-const useUnpayTransaction = ({onSuccess}: {onSuccess:any}) => {
+export const useUnpayTransaction = ({onSuccess}: {onSuccess:any}) => {
   const { selectedMonthDate } = useTransaction()
   const { selectedBudgetId } = useBudget()
   const queryClient = useQueryClient()
@@ -28,5 +28,3 @@ const useUnpayTransaction = ({onSuccess}: {onSuccess:any}) => {
     unPayTransaction: mutate,
   }
 }
-
-export default useUnpayTransaction;

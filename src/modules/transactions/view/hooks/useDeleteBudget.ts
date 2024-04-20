@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import deleteBudgetRequest from "@/modules/infra/http/deleteBudgetRequest";
+import { deleteBudgetRequest } from "@/modules/infra/http/deleteBudgetRequest";
 import { toastError } from "@/modules/utils/toastify";
 
-const useDeleteBudget = ({onSuccess}: any) => {
+export const useDeleteBudget = ({onSuccess}: any) => {
   const queryClient = useQueryClient()
 
   const { mutate } = useMutation({
@@ -21,5 +21,3 @@ const useDeleteBudget = ({onSuccess}: any) => {
     deleteBudget: mutate,
   }
 }
-
-export default useDeleteBudget;

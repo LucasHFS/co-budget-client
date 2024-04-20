@@ -1,4 +1,4 @@
-import signInRequest from "@/modules/infra/http/signInRequest";
+import { signInRequest } from "@/modules/infra/http/signInRequest";
 import { useState } from "react";
 import { useAuth } from "./useAuth";
 import { useRouter } from "next/router";

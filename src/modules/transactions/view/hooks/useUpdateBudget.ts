@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import updateBudgetRequest from "@/modules/infra/http/updateBudgetRequest";
+import { updateBudgetRequest } from "@/modules/infra/http/updateBudgetRequest";
 import { Budget } from "../../domain/Budget";
 import { toastError } from "@/modules/utils/toastify";
 
-const useUpdateBudget = ({onSuccess}: any) => {
+export const useUpdateBudget = ({onSuccess}: any) => {
   const queryClient = useQueryClient()
 
   const { mutate, isPending, } = useMutation({
@@ -23,5 +23,3 @@ const useUpdateBudget = ({onSuccess}: any) => {
     isLoading: isPending,
   }
 }
-
-export default useUpdateBudget;

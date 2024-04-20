@@ -4,7 +4,7 @@ import { useBudget } from "./useBudget";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTransaction } from "./useTransaction";
 import { formatDate } from "@/modules/utils/date";
-import deleteTransactionRequest from "@/modules/infra/http/deleteTransactionRequest";
+import { deleteTransactionRequest } from "@/modules/infra/http/deleteTransactionRequest";
 import { toastError } from "@/modules/utils/toastify";
 
 type DeleteTransactionParams = {
@@ -12,7 +12,7 @@ type DeleteTransactionParams = {
   targetTransactions: 'one' | 'this_and_next' | 'all'
 }
 
-const useDeleteTransaction = ({onSuccess}: any) => {
+export const useDeleteTransaction = ({onSuccess}: any) => {
   const { selectedMonthDate } = useTransaction()
   const { selectedBudgetId } = useBudget()
 
@@ -34,5 +34,3 @@ const useDeleteTransaction = ({onSuccess}: any) => {
     deleteTransaction: mutate,
   }
 }
-
-export default useDeleteTransaction;

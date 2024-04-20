@@ -3,10 +3,10 @@ import moment from "moment";
 import { parseDate } from "@/modules/utils/date";
 import { useBudget } from "@/modules/transactions";
 import { useConfirm } from "material-ui-confirm";
-import useUpdateTransaction from "@/modules/transactions/view/hooks/useUpdateTransaction";
-import useDeleteTransaction from "@/modules/transactions/view/hooks/useDeleteTransaction";
-import usePayTransaction from "@/modules/transactions/view/hooks/usePayTransaction";
-import useUnpayTransaction from "@/modules/transactions/view/hooks/useUnpayTransaction";
+import { useUpdateTransaction } from "@/modules/transactions/view/hooks/useUpdateTransaction";
+import { useDeleteTransaction } from "@/modules/transactions/view/hooks/useDeleteTransaction";
+import { usePayTransaction } from "@/modules/transactions/view/hooks/usePayTransaction";
+import { useUnpayTransaction } from "@/modules/transactions/view/hooks/useUnpayTransaction";
 
 export const useUpdateTransactionModal = ({transaction, handleClose}: any) => {
   const [price, setPrice] = useState(transaction.price)

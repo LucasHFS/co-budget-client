@@ -1,7 +1,7 @@
 import { Transaction } from "@sentry/nextjs/types/client"
 import { useCallback } from "react"
 
-const useCalculateTotals = ({transactions}: { transactions: Transaction[]}) => {
+export const useCalculateTotals = ({transactions}: { transactions: Transaction[]}) => {
   const calculateTotal = useCallback((transactionType: 'expense'|'income') =>
     transactions.reduce((acc, transaction) => {
         if(transaction.transactionType === transactionType){
@@ -30,5 +30,3 @@ const useCalculateTotals = ({transactions}: { transactions: Transaction[]}) => {
     calculateBalance,
   }
 }
-
-export default useCalculateTotals;

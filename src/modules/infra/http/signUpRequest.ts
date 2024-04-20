@@ -6,10 +6,8 @@ type ParamType = {
   password: string;
 }
 
-const signUpRequest = async (params: ParamType) => {
+export const signUpRequest = async (params: ParamType) => {
   return api.post("/users", {
     user: params,
   });
 }
-
-export default signUpRequest;

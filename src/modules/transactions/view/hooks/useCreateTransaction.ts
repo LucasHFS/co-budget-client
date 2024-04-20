@@ -1,4 +1,4 @@
-import createTransactionRequest from "@/modules/infra/http/createTransactionRequest";
+import { createTransactionRequest } from "@/modules/infra/http/createTransactionRequest";
 import { useBudget } from "./useBudget";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { NewTransaction } from "../../domain/Transaction";
@@ -6,7 +6,7 @@ import { useTransaction } from "./useTransaction";
 import { formatDate } from "@/modules/utils/date";
 import { toastError } from "@/modules/utils/toastify";
 
-const useCreateTransaction = ({onSuccess}: any) => {
+export const useCreateTransaction = ({onSuccess}: any) => {
   const { selectedMonthDate } = useTransaction()
   const { selectedBudgetId } = useBudget()
   const queryClient = useQueryClient()
@@ -28,5 +28,3 @@ const useCreateTransaction = ({onSuccess}: any) => {
     isLoading: isPending,
   }
 }
-
-export default useCreateTransaction;

@@ -2,8 +2,8 @@ import { useBudget } from "@/modules/transactions";
 import { useConfirm } from "material-ui-confirm";
 import { useState } from "react";
 import { useRouter } from 'next/router'
-import useUpdateBudget from "@/modules/transactions/view/hooks/useUpdateBudget";
-import useDeleteBudget from "@/modules/transactions/view/hooks/useDeleteBudget";
+import { useUpdateBudget } from "@/modules/transactions/view/hooks/useUpdateBudget";
+import { useDeleteBudget } from "@/modules/transactions/view/hooks/useDeleteBudget";
 
 export const useBudgetBox = () => {
   const router = useRouter();
