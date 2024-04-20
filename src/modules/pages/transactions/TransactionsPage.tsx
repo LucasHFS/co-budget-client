@@ -19,7 +19,6 @@ export const TransactionsPage = () => {
   const { transactions, isLoading, error } = useFetchTransactions()
 
   const { selectedBudgetId } = useBudget()
-  const { setErrors } = useTransaction()
   const [open, setOpen] = useState(false);
   const [openWarn, setOpenWarn] = useState(false);
 
@@ -33,7 +32,6 @@ export const TransactionsPage = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setErrors([])
   };
 
   const handleAction = () => {

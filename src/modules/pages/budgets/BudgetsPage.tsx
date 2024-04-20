@@ -18,8 +18,7 @@ const EmptyState = () => {
 }
 
 export const BudgetsPage = () => {
-  // const { setErrors } = useBudget()
-  const { budgets, isLoading, errors } = useFetchBudgets()
+  const { budgets, isLoading } = useFetchBudgets()
 
   const [open, setOpen] = useState(false);
 
@@ -29,7 +28,6 @@ export const BudgetsPage = () => {
 
   const handleClose = () => {
     setOpen(false);
-    // setErrors([])
   };
 
   return (
@@ -40,8 +38,7 @@ export const BudgetsPage = () => {
 
       <div className={styles.content}>
         <CreateBudgetModal open={open} onClose={handleClose}/>
-
-        { budgets.length ? <BudgetsList budgets={budgets}/> : <EmptyState/> }
+        { isLoading ? "Carregando..." : budgets.length ? <BudgetsList budgets={budgets}/> : <EmptyState/> }
 
         <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen}>
           <AddIcon/>

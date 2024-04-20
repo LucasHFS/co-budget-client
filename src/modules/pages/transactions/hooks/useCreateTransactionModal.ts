@@ -14,7 +14,7 @@ export const useCreateTransactionModal = ({onClose}: any) => {
     handleClose()
   }
 
-  const { createTransaction } = useCreateTransaction({ onSuccess })
+  const { createTransaction, isLoading } = useCreateTransaction({ onSuccess })
 
   const transactionKinds = [
     { value: 'once', name: 'Única' },
@@ -50,5 +50,6 @@ export const useCreateTransactionModal = ({onClose}: any) => {
     setPrice,
     price,
     setDueDate,
+    submitText: isLoading ? 'Criando...' : 'Criar'
   }
 }

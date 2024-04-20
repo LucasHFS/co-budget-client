@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { EditBudgetModal } from "./EditBudgetModal";
 
 export const BudgetBox = ({budget}: any) => {
-  const { open, handleClickOpen, handleClose, handleSelectedBudgetId, handleUpdate, requestErrors, handleExclude } = useBudgetBox()
+  const { open, handleClickOpen, handleClose, handleSelectedBudgetId, handleUpdate, handleExclude } = useBudgetBox()
 
   return (
     <>
@@ -28,7 +28,6 @@ export const BudgetBox = ({budget}: any) => {
         open={open}
         onClose={handleClose}
         handleUpdate={handleUpdate}
-        requestErrors={requestErrors}
         handleExclude={handleExclude}
       />
     </>

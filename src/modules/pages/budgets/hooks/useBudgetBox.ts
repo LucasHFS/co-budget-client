@@ -14,10 +14,9 @@ export const useBudgetBox = () => {
 
   const handleClose = () => {
     setOpen(false);
-    // setErrors([])
   };
 
-  const { updateBudget, isLoading, errors: requestErrors} = useUpdateBudget({ onSuccess: handleClose })
+  const { updateBudget, isLoading, } = useUpdateBudget({ onSuccess: handleClose })
 
   const { deleteBudget } = useDeleteBudget({ onSuccess: handleClose })
 
@@ -34,7 +33,6 @@ export const useBudgetBox = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
 
   //@ts-ignore
   const handleUpdate = async (values, { setSubmitting }) => {
@@ -54,7 +52,6 @@ export const useBudgetBox = () => {
     handleClickOpen,
     handleClose,
     handleUpdate,
-    requestErrors,
     handleExclude,
     isLoading,
     open,

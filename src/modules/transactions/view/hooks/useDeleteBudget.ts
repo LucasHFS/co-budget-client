@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { formatedErrorsArray } from "@/modules/utils/request";
 import deleteBudgetRequest from "@/modules/infra/http/deleteBudgetRequest";
+import { toastError } from "@/modules/utils/toastify";
 
 const useDeleteBudget = ({onSuccess}: any) => {
   const queryClient = useQueryClient()
@@ -12,7 +12,8 @@ const useDeleteBudget = ({onSuccess}: any) => {
       queryClient.invalidateQueries({ queryKey: ['budgets'] })
     },
     onError: (error) => {
-      alert(formatedErrorsArray(error))
+      const errorMsg = error?.response?.data?.error?.details.join('. ') || 'Erro ao remover orçamento'
+      toastError(errorMsg)
     }
   })
 

@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query"
 import { useBudget } from "./useBudget"
 import { useTransaction } from "./useTransaction"
 import { formatDate } from "@/modules/utils/date"
+import { toastError } from "@/modules/utils/toastify"
+import { useEffect } from "react"
 
 const useFetchTransactions = () => {
   const { selectedBudgetId } = useBudget()
@@ -19,11 +21,11 @@ const useFetchTransactions = () => {
     },
   })
 
-  // useEffect(() => {
-  //   if (error) {
-  //     console.log(error)
-  //   }
-  // }, [error])
+  useEffect(() => {
+    if (error) {
+      toastError('Falha ao carregar transaçoes.')
+    }
+  }, [error])
 
   return {
     transactions: data?.data?.transactions || [],

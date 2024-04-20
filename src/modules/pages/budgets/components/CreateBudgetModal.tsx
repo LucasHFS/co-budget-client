@@ -1,11 +1,10 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { Formik } from 'formik';
-import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import styles from "../Budget.module.scss";
 import { useCreateBudget } from "@/modules/transactions/view/hooks/useCreateBudget";
 
 export const CreateBudgetModal = ({open, onClose}:any) => {
-  const { createBudget, isLoading, errors: requestErrors} = useCreateBudget({ onSuccess: onClose})
+  const { createBudget, isLoading } = useCreateBudget({ onSuccess: onClose})
 
   //@ts-ignore
   const handleCreate = async (values, { setSubmitting }) => {
@@ -41,8 +40,6 @@ export const CreateBudgetModal = ({open, onClose}:any) => {
               autoFocus
               required
             />
-
-            {requestErrors && <ErrorMessage messages={requestErrors} />}
 
             <DialogActions>
               <Button onClick={onClose} color="warning" variant="outlined">Sair</Button>

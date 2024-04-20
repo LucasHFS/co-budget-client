@@ -1,23 +1,23 @@
 import fetchBudgetsRequest from "@/modules/infra/http/fetchBudgetsRequest"
-import { formatedErrorsArray } from "@/modules/utils/request"
 import { useQuery } from "@tanstack/react-query"
+import { useEffect } from "react"
+import { toastError } from "@/modules/utils/toastify";
 
 const useFetchBudgets = () => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isFetching, error } = useQuery({
     queryKey: ['budgets'],
     queryFn: () => fetchBudgetsRequest(),
   })
 
-  // useEffect(() => {
-  //   if (error) {
-  //     console.log(error)
-  //   }
-  // }, [error])
+  useEffect(() => {
+    if (error) {
+      toastError('Falha ao carregar orçamentos.')
+    }
+  }, [error])
 
   return {
     budgets: data?.data?.budgets || [],
-    isLoading,
-    errors: formatedErrorsArray(error),
+    isLoading: isFetching,
   }
 }
 

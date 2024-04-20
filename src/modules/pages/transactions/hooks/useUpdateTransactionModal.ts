@@ -21,7 +21,7 @@ export const useUpdateTransactionModal = ({transaction, handleClose}: any) => {
     handleClose()
   }
 
-  const { updateTransaction } = useUpdateTransaction({ onSuccess })
+  const { updateTransaction, isLoading } = useUpdateTransaction({ onSuccess })
   //@ts-ignore
   const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
 
@@ -75,5 +75,6 @@ export const useUpdateTransactionModal = ({transaction, handleClose}: any) => {
     handleUnpayTransaction,
     handlePayTransaction,
     handleExclude,
+    submitText: isLoading ? 'Salvando...' : 'Salvar',
   }
 }

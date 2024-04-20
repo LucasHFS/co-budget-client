@@ -24,6 +24,7 @@ export const UpdateTransactionModal= ({ handleClose, open, transaction }:any) =>
     targetTransactionOptions,
     handleUnpayTransaction,
     handlePayTransaction,
+    submitText,
   } = useUpdateTransactionModal({transaction, handleClose})
 
   return (
@@ -139,7 +140,7 @@ export const UpdateTransactionModal= ({ handleClose, open, transaction }:any) =>
             <DialogActions>
               <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
               <Button variant="contained" onClick={() => handleExclude(transaction)} color= "error">Excluir</Button>
-              <Button type="submit" variant="outlined">Atualizar</Button>
+              <Button type="submit" variant="outlined">{submitText}</Button>
             </DialogActions>
           </Form>
           )}
