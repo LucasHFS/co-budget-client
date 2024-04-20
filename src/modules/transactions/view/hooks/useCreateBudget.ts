@@ -1,43 +1,24 @@
-import { useState } from "react";
-import { Budget } from "../../domain/Budget";
-import { useBudget } from "./useBudget";
 import createBudgetRequest from "@/modules/infra/http/createBudgetRequest";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { formatedErrorsArray } from "@/modules/utils/request";
 
-export const useCreateBudget = () => {
-  const [isLoading, setisLoading] = useState(false);
-  const [errors, setErrors] = useState([]);
-  const { setBudgets }= useBudget()
+export const useCreateBudget = ({ onSuccess }: { onSuccess: any}) => {
+  const queryClient = useQueryClient()
 
-  const createBudget = async ({ name }: Budget) =>  {
-      try {
-          setisLoading(true);
-
-          const response = await createBudgetRequest({ name });
-
-          if (response.status === 201) {
-            const budget = response.data.budget
-
-            setBudgets((prevBudgets: Budget[]) => [
-              ...prevBudgets,
-              {
-                id: budget.id,
-                name: budget.name,
-              }
-            ]);
-            return true
-          }
-        } catch (err) {
-          //@ts-ignore
-          setErrors(formatedErrorsArray(err));
-          return false
-        } finally {
-          setisLoading(false);
-        }
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: ({name}: { name:string }) => createBudgetRequest({ name }),
+    onSuccess: () => {
+      onSuccess()
+      queryClient.invalidateQueries({ queryKey: ['budgets'] })
+    },
+    onError: (error) => {
+      alert(formatedErrorsArray(error))
     }
+  })
 
   return {
-    createBudget,
-    isLoading,
-    errors,
+    createBudget: mutate,
+    isLoading: isPending,
+    errors: formatedErrorsArray(error),
   }
 }

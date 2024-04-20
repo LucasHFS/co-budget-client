@@ -3,9 +3,12 @@ import { useBudget } from "@/modules/transactions";
 import styles from "../Transaction.module.scss";
 import EditIcon from '@mui/icons-material/Edit';
 import Router from 'next/router'
+import useFetchBudgets from "@/modules/transactions/view/hooks/useFetchBudgets";
+import { Budget } from "@/modules/transactions/domain/Budget";
 
 export const BudgetSelect = ({}) =>{
-  const { selectedBudgetId, setSelectedBudgetId, budgets } = useBudget()
+  const { selectedBudgetId, setSelectedBudgetId } = useBudget()
+  const { budgets }: { budgets: Budget[]} = useFetchBudgets()
 
   const redirectToEvents = () => {
     Router.push('/budgets')
