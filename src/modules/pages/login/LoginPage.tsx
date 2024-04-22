@@ -1,51 +1,50 @@
 import Head from "next/head";
-import { TextInput } from "@/modules/ui/TextInput/TextInput";
-import { Button } from "@/modules/ui/Button/Button";
+import { Button, TextField } from "@mui/material";
 import styles from "./Login.module.scss";
-import { FormEvent, ReactNode, useState } from "react";
-import { useAuth } from "@/modules/auth";
+import { useFormik } from "formik";
 import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
+import { useSignIn } from "@/modules/auth/view/hooks/useSignIn";
 
 export const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { signIn, isLoading, errors } = useSignIn();
 
-  const { signIn, isLoading, errors } = useAuth();
-
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const data = {
-      email,
-      password,
-    };
-    await signIn(data);
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    onSubmit: async (values) => {
+      await signIn(values);
+    },
+  });
 
   return (
     <div className={styles.content}>
       <Head>
         <title>Co-Finance - Login</title>
       </Head>
-      <form onSubmit={onSubmit} className={styles.container}>
-          <TextInput
+      <form onSubmit={formik.handleSubmit} className={styles.container}>
+          <TextField
             label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
             type='email'
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            autoFocus
             required
           />
 
-          <TextInput
+          <TextField
             label="Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
             type='password'
-            minLength='6'
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            inputProps={{ minLength: 6, maxLength: 20 }}
             required
           />
 
-          <Button disabled={isLoading} type="submit" >
+          <Button disabled={isLoading || formik.isSubmitting} variant="contained" type="submit">
             {isLoading ? "Entrando..." : "Entrar"}
           </Button>
 

@@ -3,23 +3,19 @@ import {
   ReactNode,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { api } from "@/modules/infra/services/apiClient";
-import { toastSuccess } from "@/modules/utils/toastify";
 import { useRouter } from 'next/router'
-import { formatedErrorsArray } from "@/modules/utils/request";
 import { User } from "../../domain/User";
-
+import { fetchCurrentUserRequest } from "@/modules/infra/http/fetchCurrentUserRequest";
 
 type AuthProviderValue = {
-  signIn: any
-  signUp: any
-  signOut: any
+  authenticateUser: (userData: { username: string; id: number; token: string }) => void;
+  signOut: ()=> void;
   isAuthenticated: boolean
-  user: User
+  user: User | {}
   isLoading: boolean
   errors: string[]
 };
@@ -41,7 +37,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
 
   const isAuthenticated = !!Object.keys(user).length;
 
-  function authenticateUser({ username, id, token }: {username:string, id:string, token:string}) {
+  function authenticateUser({ username, id, token }: {username:string, id:number, token:string}) {
     setCookie(undefined, "co-budget.token", token, {
       maxAge: 60 * 60 * 24 * 30,
       path: "/",
@@ -55,105 +51,49 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
     api.defaults.headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const signIn = useCallback(
-      async ({ email, password }: {email:string, password: string}) => {
-        try {
-          setisLoading(true);
-
-          const response = await api.post("users/login", {
-            user: {
-              email,
-              password,
-            },
-          });
-
-          authenticateUser(response.data.user);
-          router.push('/budgets')
-        } catch (err) {
-          //@ts-ignore
-          setErrors(formatedErrorsArray(err));
-        }
-        setisLoading(false);
-    }, [router])
-
-  const signUp = useCallback(
-    async ({email, username, password}: {email:string,username:string,password:string}) =>  {
-      try {
-          setisLoading(true);
-
-          const response = await api.post("/users", {
-            user: {
-              username,
-              email,
-              password,
-            },
-          });
-
-          if (response.status === 200) {
-            toastSuccess("Account Created!");
-
-            authenticateUser(response.data.user);
-            router.push('/budgets')
-          }
-        } catch (err) {
-          //@ts-ignore
-          setErrors(formatedErrorsArray(err));
-        }
-        setisLoading(false);
-      }, [router])
-
   const signOut = useCallback(() => {
     destroyCookie(undefined, "co-budget.token");
     setUser({});
-    router.push('/budgets')
+    router.push('/login')
 
   }, [router]);
+
+  const fetchCurrentUser = useCallback(() => {
+    setisLoading(true);
+
+    fetchCurrentUserRequest()
+      .then((response) => {
+        const { id, username } = response.data.user;
+
+        setUser({ id, username });
+      })
+      .catch(() => {
+        signOut();
+      })
+      .finally(() => {
+        setisLoading(false);
+      });
+  }, [signOut]);
 
   useEffect(() => {
     const { "co-budget.token": token } = parseCookies();
 
     if (token) {
-      setisLoading(true);
-      api
-        .get("/user")
-        .then((response) => {
-          const { id, username } = response.data.user;
-
-          setUser({ id, username });
-        })
-        .catch(() => {
-          signOut();
-        })
-        .finally(() => {
-          setisLoading(false);
-        });
+      fetchCurrentUser()
     }
     return () => setErrors([]);
-  }, [signOut]);
+  }, [fetchCurrentUser, signOut]);
 
-  const value = useMemo(
-    () => ({
-      signIn,
-      signUp,
+  const value = {
+      authenticateUser,
       signOut,
       isAuthenticated,
       user,
       isLoading,
       errors,
-    }),
-    [
-      signIn,
-      signUp,
-      signOut,
-      isAuthenticated,
-      user,
-      isLoading,
-      errors,
-    ]
-  );
+  }
 
   return (
-    //@ts-ignore
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
 };

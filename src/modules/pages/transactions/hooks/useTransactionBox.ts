@@ -10,10 +10,7 @@ export const useTransactionBox = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setErrors([])
   };
-
-  const { setErrors } = useTransaction()
 
   return {
     handleClickOpen,

@@ -1,34 +1,23 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { Formik } from 'formik';
-import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
-import { useBudget } from '@/modules/transactions';
 import styles from "../Budget.module.scss";
-import { useBudgetBox } from "../hooks/useBudgetBox";
+import { useCreateBudget } from "@/modules/transactions/view/hooks/useCreateBudget";
 
 export const CreateBudgetModal = ({open, onClose}:any) => {
-  const { createBudget, errors: requestErrors } = useBudget()
-  const { handleSelectedBudgetId } = useBudgetBox()
-
-  const handleClose = () =>{
-    onClose()
-  }
+  const { createBudget, isLoading } = useCreateBudget({ onSuccess: onClose})
 
   //@ts-ignore
   const handleCreate = async (values, { setSubmitting }) => {
     const {name} = values
-    const success = await createBudget({ name });
-
-    if(success){
-      handleClose()
-      // TODO: fetch the id of the created budget
-      // handleSelectedBudgetId()
-    }
+    await createBudget({ name });
 
     setSubmitting(false);
   }
 
+  const submitText = isLoading ? 'Criando...' : 'Criar'
+
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={onClose}>
     <DialogTitle color="black">Novo Orçamento</DialogTitle>
     <DialogContent className={styles.dialog_content}>
       <Formik
@@ -48,14 +37,13 @@ export const CreateBudgetModal = ({open, onClose}:any) => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.name}
+              autoFocus
               required
             />
 
-            {requestErrors && <ErrorMessage messages={requestErrors} />}
-
             <DialogActions>
-              <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
-              <Button type="submit" variant="outlined">Criar</Button>
+              <Button onClick={onClose} color="warning" variant="outlined">Sair</Button>
+              <Button type="submit" variant="outlined">{submitText}</Button>
             </DialogActions>
           </form>
         )}
