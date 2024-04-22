@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 
-import { useTransaction, useBudget } from "@/modules/transactions";
+import { useBudget } from "@/modules/transactions";
 import styles from "./Transaction.module.scss";
 import { Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
@@ -13,10 +13,12 @@ import Router from 'next/router'
 import { TransactionsList } from "./components/TransactionsList";
 import { MonthSelect } from "./components/MonthSelect";
 import { TotalValues } from "./components/TotalValues";
+import { useFetchTransactions } from "@/modules/transactions/view/hooks/useFetchTransactions";
 
 export const TransactionsPage = () => {
+  const { transactions, isLoading, error } = useFetchTransactions()
+
   const { selectedBudgetId } = useBudget()
-  const { transactions, setErrors } = useTransaction()
   const [open, setOpen] = useState(false);
   const [openWarn, setOpenWarn] = useState(false);
 
@@ -30,7 +32,6 @@ export const TransactionsPage = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setErrors([])
   };
 
   const handleAction = () => {
@@ -60,9 +61,9 @@ export const TransactionsPage = () => {
           action={{text: 'Criar Orçamento', handle: handleAction}}
           />
 
-        <TotalValues />
+        <TotalValues transactions={transactions}/>
 
-        <TransactionsList transactions={transactions} />
+        <TransactionsList transactions={transactions} isLoading={isLoading}/>
 
         <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen}>
           <AddIcon color="primary"/>

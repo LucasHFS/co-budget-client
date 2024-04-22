@@ -1,7 +1,5 @@
 import { api } from "../services/apiClient";
 
-const fetchCurrentUserRequest = () => {
+export const fetchCurrentUserRequest = () => {
     return api.get("/user")
 }
-
-export default fetchCurrentUserRequest;

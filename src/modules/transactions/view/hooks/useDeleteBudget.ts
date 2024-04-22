@@ -1,37 +1,23 @@
-import { useState } from "react";
-import { useBudget } from "./useBudget";
-import deleteBudgetRequest from "@/modules/infra/http/deleteBudgetRequest";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteBudgetRequest } from "@/modules/infra/http/deleteBudgetRequest";
+import { toastError } from "@/modules/utils/toastify";
 
-export const useDeleteBudget = () => {
-  const [isLoading, setisLoading] = useState(false);
-  const [errors, setErrors] = useState([]);
+export const useDeleteBudget = ({onSuccess}: any) => {
+  const queryClient = useQueryClient()
 
-  const { budgets, setBudgets }= useBudget()
-
-  const deleteBudget = async ({ id }: {id: number}) =>  {
-    try {
-      setisLoading(true);
-
-      const response = await deleteBudgetRequest(id);
-
-      if (response.status === 204) {
-        const budgetsWithoutDeleted = budgets.filter((budget)=> id !== budget.id)
-        setBudgets(budgetsWithoutDeleted)
-
-        return true
-      }
-    } catch (err) {
-      //@ts-ignore
-      setErrors(formatedErrorsArray(err));
-      return false
+  const { mutate } = useMutation({
+    mutationFn: (id: number) => deleteBudgetRequest(id),
+    onSuccess: () => {
+      onSuccess()
+      queryClient.invalidateQueries({ queryKey: ['budgets'] })
+    },
+    onError: (error) => {
+      const errorMsg = error?.response?.data?.error?.details.join('. ') || 'Erro ao remover orçamento'
+      toastError(errorMsg)
     }
-
-      setisLoading(false);
-    }
+  })
 
   return {
-    deleteBudget,
-    isLoading,
-    errors,
+    deleteBudget: mutate,
   }
 }

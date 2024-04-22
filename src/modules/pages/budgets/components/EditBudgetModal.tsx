@@ -1,6 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { Formik } from "formik";
-import { ErrorMessage } from "@/modules/ui/ErrorMessage/ErrorMessage";
 import styles from "./BudgetBox.module.scss";
 import { Budget } from "@/modules/transactions/domain/Budget";
 
@@ -9,11 +8,10 @@ type EditBudgetModalProps = {
   open: boolean
   onClose: () => void
   handleUpdate: (values: any, { setSubmitting }: any) => void
-  requestErrors: string[]
   handleExclude: (id: number) => void
 }
 
-export const EditBudgetModal = ({ budget, open, onClose, handleUpdate, requestErrors, handleExclude }: EditBudgetModalProps) => {
+export const EditBudgetModal = ({ budget, open, onClose, handleUpdate, handleExclude }: EditBudgetModalProps) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle color="black">Atualizar Orçamento (#{budget.id})</DialogTitle>
@@ -39,7 +37,6 @@ export const EditBudgetModal = ({ budget, open, onClose, handleUpdate, requestEr
                 autoFocus
                 margin="dense"
               />
-              {requestErrors && <ErrorMessage messages={requestErrors} />}
 
               <DialogActions style={{display: "flex", flexDirection: 'column', gap: '5px'}}>
                 <div style={{display: 'flex', flexDirection: 'row', gap: '5px'}}>

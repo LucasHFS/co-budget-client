@@ -1,13 +1,20 @@
 import { useState } from "react";
 import moment from "moment";
-import { useTransaction } from '@/modules/transactions';
+import { useCreateTransaction } from "@/modules/transactions/view/hooks/useCreateTransaction";
 
 export const useCreateTransactionModal = ({onClose}: any) => {
   const [price, setPrice] = useState('')
   const [dueAt, setDueDate] = useState(moment(new Date()).format("DD/MM/YYYY"));
 
   const modifiedValue = moment(moment(dueAt,"DD/MM/YYYY"),"MM-DD-YYYY");
-  const { errors: requestErrors, createTransaction } = useTransaction()
+
+  const onSuccess = () => {
+    setPrice('')
+    setDueDate(moment(new Date()).format("DD/MM/YYYY"))
+    handleClose()
+  }
+
+  const { createTransaction, isLoading } = useCreateTransaction({ onSuccess })
 
   const transactionKinds = [
     { value: 'once', name: 'Única' },
@@ -28,13 +35,8 @@ export const useCreateTransactionModal = ({onClose}: any) => {
       dueAt,
       price,
     }
-    const success = await createTransaction(data);
 
-    if(success){
-      setPrice('')
-      setDueDate(moment(new Date()).format("DD/MM/YYYY"))
-      handleClose()
-    }
+    await createTransaction(data);
 
     setSubmitting(false);
   }
@@ -47,7 +49,7 @@ export const useCreateTransactionModal = ({onClose}: any) => {
     installmentKind,
     setPrice,
     price,
-    requestErrors,
     setDueDate,
+    submitText: isLoading ? 'Criando...' : 'Criar'
   }
 }

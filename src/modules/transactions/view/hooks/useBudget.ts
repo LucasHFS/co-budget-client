@@ -11,22 +11,12 @@ export const useBudget = () => {
   }
 
   const {
-    budgets,
-    setBudgets,
     selectedBudgetId,
     setSelectedBudgetId,
-    isLoading,
-    errors,
-    setErrors,
   } = value;
 
   return {
-    budgets,
-    setBudgets,
     selectedBudgetId,
     setSelectedBudgetId,
-    isLoading,
-    errors,
-    setErrors,
   };
 };

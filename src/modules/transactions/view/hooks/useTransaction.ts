@@ -11,38 +11,12 @@ export const useTransaction = () => {
   }
 
   const {
-    createTransaction,
-    updateTransaction,
-    deleteTransaction,
-    transactions,
-    setTransactions,
-    refetchTransactions,
     selectedMonthDate,
     setSelectedMonthDate,
-    payTransaction,
-    unpayTransaction,
-    calculateBalance,
-    calculateTotal,
-    isLoading,
-    errors,
-    setErrors,
   } = value;
 
   return {
-    createTransaction,
-    updateTransaction,
-    deleteTransaction,
-    transactions,
-    setTransactions,
-    refetchTransactions,
     selectedMonthDate,
     setSelectedMonthDate,
-    payTransaction,
-    unpayTransaction,
-    calculateBalance,
-    calculateTotal,
-    isLoading,
-    errors,
-    setErrors,
   };
 };

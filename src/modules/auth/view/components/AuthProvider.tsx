@@ -9,10 +9,10 @@ import { parseCookies, setCookie, destroyCookie } from "nookies";
 import { api } from "@/modules/infra/services/apiClient";
 import { useRouter } from 'next/router'
 import { User } from "../../domain/User";
-import fetchCurrentUserRequest from "@/modules/infra/http/fetchCurrentUserRequest";
+import { fetchCurrentUserRequest } from "@/modules/infra/http/fetchCurrentUserRequest";
 
 type AuthProviderValue = {
-  authenticateUser: (userData: { username: string; id: string; token: string }) => void;
+  authenticateUser: (userData: { username: string; id: number; token: string }) => void;
   signOut: ()=> void;
   isAuthenticated: boolean
   user: User | {}
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
 
   const isAuthenticated = !!Object.keys(user).length;
 
-  function authenticateUser({ username, id, token }: {username:string, id:string, token:string}) {
+  function authenticateUser({ username, id, token }: {username:string, id:number, token:string}) {
     setCookie(undefined, "co-budget.token", token, {
       maxAge: 60 * 60 * 24 * 30,
       path: "/",
@@ -58,16 +58,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
 
   }, [router]);
 
-  useEffect(() => {
-    const { "co-budget.token": token } = parseCookies();
-
-    if (token) {
-      fetchCurrentUser()
-    }
-    return () => setErrors([]);
-  }, [signOut]);
-
-  const fetchCurrentUser = () => {
+  const fetchCurrentUser = useCallback(() => {
     setisLoading(true);
 
     fetchCurrentUserRequest()
@@ -82,7 +73,16 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
       .finally(() => {
         setisLoading(false);
       });
-  }
+  }, [signOut]);
+
+  useEffect(() => {
+    const { "co-budget.token": token } = parseCookies();
+
+    if (token) {
+      fetchCurrentUser()
+    }
+    return () => setErrors([]);
+  }, [fetchCurrentUser, signOut]);
 
   const value = {
       authenticateUser,

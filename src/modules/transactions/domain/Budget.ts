@@ -1,4 +1,8 @@
 export type Budget = {
-  id?: number
+  id: number
+  name: string
+};
+
+export type NewBudget = {
   name: string
 };

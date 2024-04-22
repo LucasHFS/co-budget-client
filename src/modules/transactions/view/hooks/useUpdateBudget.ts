@@ -1,48 +1,25 @@
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateBudgetRequest } from "@/modules/infra/http/updateBudgetRequest";
 import { Budget } from "../../domain/Budget";
-import { useBudget } from "./useBudget";
-import updateBudgetRequest from "@/modules/infra/http/updateBudgetRequest";
+import { toastError } from "@/modules/utils/toastify";
 
-export const useUpdateBudget = () => {
-  const [isLoading, setisLoading] = useState(false);
-  const [errors, setErrors] = useState([]);
-  const { setBudgets }= useBudget()
+export const useUpdateBudget = ({onSuccess}: any) => {
+  const queryClient = useQueryClient()
 
-  const updateBudget = async ({ id, name }: Budget) =>  {
-      try {
-          setisLoading(true);
-
-          const response = await updateBudgetRequest({ id, name });
-
-          if (response.status === 200) {
-            const budget = response.data.budget
-
-            setBudgets((prevBudgets: Budget[]) => {
-              return prevBudgets.map((budg)=>{
-                if(budg.id === budget.id){
-                  return {
-                    id: budget.id,
-                    name: budget.name,
-                  }
-                } else {
-                  return budg;
-                }
-              })
-            });
-            return true
-          }
-        } catch (err) {
-          //@ts-ignore
-          setErrors(formatedErrorsArray(err));
-          return false
-        }
-        setisLoading(false);
-  }
-
+  const { mutate, isPending, } = useMutation({
+    mutationFn: (budget: Budget) => updateBudgetRequest(budget),
+    onSuccess: () => {
+      onSuccess()
+      queryClient.invalidateQueries({ queryKey: ['budgets'] })
+    },
+    onError: (error) => {
+      const errorMsg = error?.response?.data?.error?.details.join('. ') || 'Erro ao atualizar orçamento'
+      toastError(errorMsg)
+    }
+  })
 
   return {
-    updateBudget,
-    isLoading,
-    errors,
+    updateBudget: mutate,
+    isLoading: isPending,
   }
 }

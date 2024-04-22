@@ -14,8 +14,6 @@ export const UpdateTransactionModal= ({ handleClose, open, transaction }:any) =>
   const payText = transaction.transactionType == 'expense' ? 'Pagar' : 'Receber'
   const unpayText = transaction.transactionType == 'expense' ? 'Remover pagamento' : 'Remover recebimento'
 
-  console.log(transaction)
-
   const {
     handleUpdate,
     handleExclude,
@@ -26,7 +24,7 @@ export const UpdateTransactionModal= ({ handleClose, open, transaction }:any) =>
     targetTransactionOptions,
     handleUnpayTransaction,
     handlePayTransaction,
-    requestErrors,
+    submitText,
   } = useUpdateTransactionModal({transaction, handleClose})
 
   return (
@@ -137,12 +135,12 @@ export const UpdateTransactionModal= ({ handleClose, open, transaction }:any) =>
             </Button>
             }
 
-            {requestErrors && <ErrorMessage messages={requestErrors} />}
+            {/* {requestErrors && <ErrorMessage messages={requestErrors} />} */}
 
             <DialogActions>
               <Button onClick={handleClose} color="warning" variant="outlined">Sair</Button>
               <Button variant="contained" onClick={() => handleExclude(transaction)} color= "error">Excluir</Button>
-              <Button type="submit" variant="outlined">Atualizar</Button>
+              <Button type="submit" variant="outlined">{submitText}</Button>
             </DialogActions>
           </Form>
           )}
