@@ -7,5 +7,5 @@ Cypress.Commands.add("mockLogin", () => {
   cy.intercept('GET','/api/user', {
     statusCode: 200,
     fixture: 'user.json',
-  })
+  }).as("user");
 })
