@@ -14,7 +14,7 @@ export const LoginPage = () => {
       password: '',
     },
     onSubmit: async (values) => {
-      await signIn(values);
+      await signIn(values)
     },
   });
 
@@ -44,7 +44,7 @@ export const LoginPage = () => {
             required
           />
 
-          <Button disabled={isLoading || formik.isSubmitting} variant="contained" type="submit">
+          <Button disabled={isLoading} variant="contained" type="submit">
             {isLoading ? "Entrando..." : "Entrar"}
           </Button>
 

@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
 
   }, [router]);
 
-  const fetchCurrentUser = useCallback(() => {
+  const fetchuser = useCallback(() => {
     setisLoading(true);
 
     fetchCurrentUserRequest()
@@ -79,10 +79,11 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
     const { "co-budget.token": token } = parseCookies();
 
     if (token) {
-      fetchCurrentUser()
+      fetchuser()
     }
+
     return () => setErrors([]);
-  }, [fetchCurrentUser, signOut]);
+  }, [fetchuser, signOut]);
 
   const value = {
       authenticateUser,

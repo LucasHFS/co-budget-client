@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "./useAuth";
 import { useRouter } from "next/router";
-import signUpRequest from "@/modules/infra/http/signUpRequest";
+import { signUpRequest } from "@/modules/infra/http/signUpRequest";
 import { toastSuccess } from "@/modules/utils/toastify";
+import { formatedErrorsArray } from "@/modules/utils/request";
 
 export const useSignUp = () => {
   const { authenticateUser } = useAuth();

@@ -4,6 +4,7 @@ import { parseCookies } from "nookies"
 export function withSSRGuest(fn: GetServerSideProps) {
     return async (ctx: GetServerSidePropsContext) => {
         const cookies = parseCookies(ctx)
+
         if (cookies['co-budget.token']) {
             return {
                 redirect: {

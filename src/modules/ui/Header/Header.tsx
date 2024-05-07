@@ -201,7 +201,7 @@ export const Header = (props: any) =>{
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h4" noWrap component="h1">
             {title}
           </Typography>
         </Toolbar>
