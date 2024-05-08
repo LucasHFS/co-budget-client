@@ -40,7 +40,7 @@ export const BudgetsPage = () => {
         <CreateBudgetModal open={open} onClose={handleClose}/>
         { isLoading ? "Carregando..." : budgets.length ? <BudgetsList budgets={budgets}/> : <EmptyState/> }
 
-        <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen}>
+        <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen} id="add">
           <AddIcon/>
         </Fab>
       </div>

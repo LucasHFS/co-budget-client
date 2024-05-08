@@ -9,14 +9,14 @@ export const BudgetBox = ({budget}: any) => {
 
   return (
     <>
-      <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'left'}} className={styles.box}>
+      <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'left'}} className={styles.box} data-testid="budgetBox">
         <div style={{flex: 3}} onClick={() => handleSelectedBudgetId(budget.id)}>
           <div className={styles.title}>#{budget.id}</div>
-          <div className={styles.title}>{budget.name}</div>
+          <div className={styles.title} data-testid="budgetTitle">{budget.name}</div>
         </div>
 
         <div style={{ flex: 1}}>
-          <Fab aria-label="edit" onClick={handleClickOpen}>
+          <Fab aria-label="edit" onClick={handleClickOpen} data-testid="editBudgetBtn">
             {/* @ts-ignore */}
             <EditIcon className={styles.editIcon}/>
           </Fab>

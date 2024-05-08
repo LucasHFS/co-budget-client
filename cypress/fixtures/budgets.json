@@ -1,0 +1,7 @@
+{
+  "budgets": [
+    { "id": 1, "name": "Budget 1" },
+    { "id": 2, "name": "Budget 2" },
+    { "id": 3, "name": "Budget 3" }
+  ]
+}
