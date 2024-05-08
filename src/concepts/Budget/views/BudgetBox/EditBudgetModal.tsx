@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { Formik } from "formik";
 import styles from "./BudgetBox.module.scss";
-import { Budget } from "@/concepts/transactions/domain/Budget";
+import { Budget } from "../../domain/Budget";
 
 type EditBudgetModalProps = {
   budget: Budget

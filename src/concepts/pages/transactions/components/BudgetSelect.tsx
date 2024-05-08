@@ -1,10 +1,10 @@
 import { Fab, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { useBudget } from "@/concepts/transactions";
 import styles from "../Transaction.module.scss";
 import EditIcon from '@mui/icons-material/Edit';
 import Router from 'next/router'
-import { useFetchBudgets } from "@/concepts/transactions/view/hooks/useFetchBudgets";
-import { Budget } from "@/concepts/transactions/domain/Budget";
+import { useBudget } from "@/concepts/Budget/hooks/useBudget";
+import { useFetchBudgets } from "@/concepts/Budget/hooks/useFetchBudgets";
+import { Budget } from "@/concepts/Budget/domain/Budget";
 
 export const BudgetSelect = ({}) =>{
   const { selectedBudgetId, setSelectedBudgetId } = useBudget()
@@ -31,6 +31,7 @@ export const BudgetSelect = ({}) =>{
           label="Orçamento"
           required
           onChange={(e) => {
+            // @ts-ignore
             setSelectedBudgetId(e.target.value);
           }}
           sx={{ minWidth: '200px', color: '#e0e0e2' }}

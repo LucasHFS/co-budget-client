@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
 
-import { useBudget } from "@/concepts/transactions";
 import styles from "./Transaction.module.scss";
 import { Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
@@ -14,6 +13,7 @@ import { TransactionsList } from "./components/TransactionsList";
 import { MonthSelect } from "./components/MonthSelect";
 import { TotalValues } from "./components/TotalValues";
 import { useFetchTransactions } from "@/concepts/transactions/view/hooks/useFetchTransactions";
+import { useBudget } from "@/concepts/Budget/hooks/useBudget";
 
 export const TransactionsPage = () => {
   const { transactions, isLoading, error } = useFetchTransactions()

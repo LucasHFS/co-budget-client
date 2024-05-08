@@ -1,6 +1,6 @@
 import { fetchTransactionsRequest } from "@/concepts/infra/http/fetchTransactionsRequest"
 import { useQuery } from "@tanstack/react-query"
-import { useBudget } from "./useBudget"
+import { useBudget } from "../../../Budget/hooks/useBudget"
 import { useTransaction } from "./useTransaction"
 import { formatDate } from "@/concepts/utils/date"
 import { toastError } from "@/concepts/utils/toastify"

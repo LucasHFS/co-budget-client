@@ -1,5 +1,5 @@
 import { createTransactionRequest } from "@/concepts/infra/http/createTransactionRequest";
-import { useBudget } from "./useBudget";
+import { useBudget } from "../../../Budget/hooks/useBudget";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { NewTransaction } from "../../domain/Transaction";
 import { useTransaction } from "./useTransaction";

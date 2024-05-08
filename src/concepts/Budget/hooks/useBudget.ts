@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BudgetContext } from "../components/BudgetProvider";
+import { BudgetContext } from "../store/BudgetProvider";
 
 export const useBudget = () => {
   const value = useContext(BudgetContext);

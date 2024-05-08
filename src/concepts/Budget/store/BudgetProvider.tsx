@@ -4,7 +4,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Budget } from "@/concepts/transactions/domain/Budget";
+import { Budget } from "@/concepts/Budget/domain/Budget";
 
 type BudgetProviderValue = {
   selectedBudgetId: number

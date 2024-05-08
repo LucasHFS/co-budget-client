@@ -1,7 +1,7 @@
-import { Budget } from "@/concepts/transactions/domain/Budget";
 import Head from "next/head";
-import { BudgetBox } from "./BudgetBox";
+import { BudgetBox } from "../BudgetBox/BudgetBox";
 import styles from "./BudgetsList.module.scss";
+import { Budget } from "../../domain/Budget";
 
 export const BudgetsList = ({budgets}: {budgets:Budget[]}) => {
   return (

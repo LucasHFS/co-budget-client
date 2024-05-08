@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { Formik } from 'formik';
 import styles from "../Budget.module.scss";
-import { useCreateBudget } from "@/concepts/transactions/view/hooks/useCreateBudget";
+import { useCreateBudget } from "./hooks/useCreateBudget";
 
 export const CreateBudgetModal = ({open, onClose}:any) => {
   const { createBudget, isLoading } = useCreateBudget({ onSuccess: onClose})

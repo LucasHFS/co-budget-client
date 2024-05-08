@@ -1,6 +1,6 @@
-import { createBudgetRequest } from "@/concepts/infra/http/createBudgetRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toastError } from "@/concepts/utils/toastify";
+import { createBudgetRequest } from "@/concepts/Budget/repository/createBudgetRequest";
 
 export const useCreateBudget = ({ onSuccess }: { onSuccess: any}) => {
   const queryClient = useQueryClient()

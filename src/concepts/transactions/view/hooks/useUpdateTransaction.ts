@@ -1,4 +1,4 @@
-import { useBudget } from "./useBudget";
+import { useBudget } from "../../../Budget/hooks/useBudget";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Transaction } from "../../domain/Transaction";
 import { useTransaction } from "./useTransaction";

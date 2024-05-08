@@ -2,11 +2,11 @@ import { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Head from "next/head";
 
-import { BudgetsList } from "./components/BudgetsList";
+import { BudgetsList } from "./BudgetList/BudgetsList";
 import styles from "./Budget.module.scss";
-import { CreateBudgetModal } from "./components/CreateBudgetModal";
+import { CreateBudgetModal } from "./CreateBudgetModal/CreateBudgetModal";
 import { Fab } from "@mui/material";
-import { useFetchBudgets } from "@/concepts/transactions/view/hooks/useFetchBudgets";
+import { useFetchBudgets } from "../hooks/useFetchBudgets";
 
 const EmptyState = () => {
   return (

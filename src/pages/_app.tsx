@@ -1,12 +1,13 @@
 import type { AppProps } from "next/app";
 import "@/components/theme/global.scss";
 import { Layout } from "@/concepts/ui/Layout/Layout";
-import { TransactionProvider, BudgetProvider } from "@/concepts/transactions";
+import { TransactionProvider } from "@/concepts/transactions";
 import { ConfirmProvider } from "material-ui-confirm";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "@/concepts/Auth/store/AuthProvider";
+import { BudgetProvider } from "@/concepts/Budget/store/BudgetProvider";
 
 const queryClient = new QueryClient()
 

@@ -1,7 +1,7 @@
 import { Fab } from "@mui/material";
 import styles from "./BudgetBox.module.scss";
-import { useBudgetBox } from "../hooks/useBudgetBox";
 import EditIcon from '@mui/icons-material/Edit';
+import { useBudgetBox } from "./hooks/useBudgetBox";
 import { EditBudgetModal } from "./EditBudgetModal";
 
 export const BudgetBox = ({budget}: any) => {

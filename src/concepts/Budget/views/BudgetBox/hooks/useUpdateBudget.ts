@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateBudgetRequest } from "@/concepts/infra/http/updateBudgetRequest";
-import { Budget } from "../../domain/Budget";
+import { Budget } from "../../../domain/Budget";
+import { updateBudgetRequest } from "../../../repository/updateBudgetRequest";
 import { toastError } from "@/concepts/utils/toastify";
 
 export const useUpdateBudget = ({onSuccess}: any) => {
@@ -13,6 +13,7 @@ export const useUpdateBudget = ({onSuccess}: any) => {
       queryClient.invalidateQueries({ queryKey: ['budgets'] })
     },
     onError: (error) => {
+      // @ts-ignore
       const errorMsg = error?.response?.data?.error?.details.join('. ') || 'Erro ao atualizar orçamento'
       toastError(errorMsg)
     }

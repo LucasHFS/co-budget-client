@@ -1,4 +1,3 @@
-import { useTransaction } from "@/concepts/transactions";
 import { useState } from "react";
 
 export const useTransactionBox = () => {

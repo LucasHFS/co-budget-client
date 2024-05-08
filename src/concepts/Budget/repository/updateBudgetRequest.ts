@@ -1,5 +1,5 @@
-import { Budget } from "@/concepts/transactions/domain/Budget";
 import { api } from "@/lib/http/api";
+import { Budget } from "../domain/Budget";
 
 export const updateBudgetRequest = async ({ id, name }: Budget) => {
   return api.put(`/budgets/${id}`, {

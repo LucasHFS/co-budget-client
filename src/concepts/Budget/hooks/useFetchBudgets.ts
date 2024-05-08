@@ -1,7 +1,7 @@
-import { fetchBudgetsRequest } from "@/concepts/infra/http/fetchBudgetsRequest"
 import { useQuery } from "@tanstack/react-query"
 import { useEffect } from "react"
 import { toastError } from "@/concepts/utils/toastify";
+import { fetchBudgetsRequest } from "../repository/fetchBudgetsRequest";
 
 export const useFetchBudgets = () => {
   const { data, isFetching, error } = useQuery({

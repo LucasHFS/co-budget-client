@@ -1,12 +1,12 @@
 import { useState } from "react";
 import moment from "moment";
 import { parseDate } from "@/concepts/utils/date";
-import { useBudget } from "@/concepts/transactions";
 import { useConfirm } from "material-ui-confirm";
 import { useUpdateTransaction } from "@/concepts/transactions/view/hooks/useUpdateTransaction";
 import { useDeleteTransaction } from "@/concepts/transactions/view/hooks/useDeleteTransaction";
 import { usePayTransaction } from "@/concepts/transactions/view/hooks/usePayTransaction";
 import { useUnpayTransaction } from "@/concepts/transactions/view/hooks/useUnpayTransaction";
+import { useBudget } from "@/concepts/Budget/hooks/useBudget";
 
 export const useUpdateTransactionModal = ({transaction, handleClose}: any) => {
   const [price, setPrice] = useState(transaction.price)
