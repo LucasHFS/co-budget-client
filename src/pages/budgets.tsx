@@ -1,5 +1,5 @@
-import { withSSRAuth } from "@/modules/auth/middlewares/withSSRAuth";
-import { BudgetsPage } from "@/modules/pages/budgets/BudgetsPage";
+import { withSSRAuth } from "@/concepts/auth/middlewares/withSSRAuth";
+import { BudgetsPage } from "@/concepts/pages/budgets/BudgetsPage";
 
 const Page = () => {
   return <BudgetsPage />;

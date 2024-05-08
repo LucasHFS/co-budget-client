@@ -1,5 +1,5 @@
-import { withSSRGuest } from "@/modules/auth/middlewares/withSSRGuest";
-import { LoginPage } from "@/modules/pages/login/LoginPage";
+import { withSSRGuest } from "@/concepts/auth/middlewares/withSSRGuest";
+import { LoginPage } from "@/concepts/pages/login/LoginPage";
 
 const Page = () => {
   return <LoginPage />;
