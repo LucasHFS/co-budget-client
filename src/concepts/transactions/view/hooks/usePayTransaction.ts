@@ -1,9 +1,9 @@
-import { api } from "@/concepts/infra/services/apiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useBudget } from "./useBudget";
 import { useTransaction } from "./useTransaction";
 import { formatDate } from "@/concepts/utils/date";
 import { toastError } from "@/concepts/utils/toastify";
+import { api } from "@/lib/http/api";
 
 export const usePayTransaction = ({onSuccess}: {onSuccess:any}) => {
   const { selectedMonthDate } = useTransaction()

@@ -13,7 +13,6 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useAuth } from '@/concepts/auth';
 import { useRouter } from 'next/router';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import WalletIcon from '@mui/icons-material/Wallet';
@@ -22,6 +21,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import styles from './Header.module.scss'
 import cx from "classnames";
+import { useAuth } from '@/concepts/Auth/hooks/useAuth';
 
 const drawerWidth = 240;
 

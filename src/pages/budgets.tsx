@@ -1,4 +1,4 @@
-import { withSSRAuth } from "@/concepts/auth/middlewares/withSSRAuth";
+import { withSSRAuth } from "@/concepts/Auth/middlewares/withSSRAuth";
 import { BudgetsPage } from "@/concepts/pages/budgets/BudgetsPage";
 
 const Page = () => {

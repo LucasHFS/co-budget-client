@@ -1,4 +1,4 @@
-import { api } from "@/concepts/infra/services/apiClient";
+import { api } from "@/lib/http/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useBudget } from "./useBudget";
 import { useTransaction } from "./useTransaction";

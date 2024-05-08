@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { useRouter } from "next/router";
-import { signUpRequest } from "@/concepts/infra/http/signUpRequest";
 import { toastSuccess } from "@/concepts/utils/toastify";
 import { formatedErrorsArray } from "@/concepts/utils/request";
+import { signUpRequest } from "@/concepts/Auth/repository/signUpRequest";
 
 export const useSignUp = () => {
   const { authenticateUser } = useAuth();

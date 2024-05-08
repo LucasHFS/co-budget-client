@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next"
 import { destroyCookie, parseCookies } from "nookies"
-import { AuthTokenError } from "@/concepts/infra/services/errors/AuthTokenError"
+import { AuthTokenError } from "@/lib/http/errors/AuthTokenError"
 
 export function withSSRAuth(fn: GetServerSideProps) {
     return async (ctx: GetServerSidePropsContext) => {

@@ -1,8 +1,8 @@
-import { signInRequest } from "@/concepts/infra/http/signInRequest";
 import { useState } from "react";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { useRouter } from "next/router";
 import { formatedErrorsArray } from "@/concepts/utils/request";
+import { signInRequest } from "@/concepts/Auth/repository/signInRequest";
 
 export const useSignIn = () => {
   const { authenticateUser } = useAuth();

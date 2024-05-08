@@ -1,4 +1,4 @@
-import { api } from "@/concepts/infra/services/apiClient";
+import { api } from "@/lib/http/api";
 
 type ParamType = {
   email:string;

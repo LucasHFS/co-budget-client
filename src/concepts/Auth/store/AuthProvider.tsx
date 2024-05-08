@@ -6,10 +6,10 @@ import {
   useState,
 } from "react";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
-import { api } from "@/concepts/infra/services/apiClient";
 import { useRouter } from 'next/router'
-import { User } from "../../domain/User";
-import { fetchCurrentUserRequest } from "@/concepts/infra/http/fetchCurrentUserRequest";
+import { User } from "../domain/User";
+import { fetchCurrentUserRequest } from "../repository/fetchCurrentUserRequest";
+import { api } from "@/lib/http/api";
 
 type AuthProviderValue = {
   authenticateUser: (userData: { username: string; id: number; token: string }) => void;

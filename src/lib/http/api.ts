@@ -3,7 +3,7 @@ import { parseCookies } from "nookies";
 
 export const CO_BUDGET_API_URL = process.env.NEXT_PUBLIC_CO_BUDGET_API_URL;
 
-export function setupApiClient(ctx = undefined) {
+function setupApiClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
 
   if (cookies["co-budget.token"]) {
@@ -23,3 +23,5 @@ export function setupApiClient(ctx = undefined) {
     return api;
   }
 }
+
+export const api = setupApiClient();

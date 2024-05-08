@@ -3,7 +3,7 @@ import { Button, TextField } from "@mui/material";
 import styles from "./Login.module.scss";
 import { useFormik } from "formik";
 import { ErrorMessage } from "@/concepts/ui/ErrorMessage/ErrorMessage";
-import { useSignIn } from "@/concepts/auth/view/hooks/useSignIn";
+import { useSignIn } from "./hooks/useSignIn";
 
 export const LoginPage = () => {
   const { signIn, isLoading, errors } = useSignIn();

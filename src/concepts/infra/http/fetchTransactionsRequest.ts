@@ -1,4 +1,4 @@
-import { api } from "../services/apiClient";
+import { api } from "@/lib/http/api";
 
 type FetchTransactionsParams = {
   budgetId: number;
