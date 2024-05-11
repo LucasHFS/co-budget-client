@@ -65,7 +65,7 @@ export const TransactionsPage = () => {
 
         <TransactionsList transactions={transactions} isLoading={isLoading}/>
 
-        <Fab className={styles.floating_button} color="primary" aria-label="add" onClick={handleClickOpen}>
+        <Fab className={styles.floating_button} color="primary" aria-label="add" id="add" onClick={handleClickOpen}>
           <AddIcon color="primary"/>
         </Fab>
       </div>

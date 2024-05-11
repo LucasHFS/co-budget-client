@@ -74,7 +74,7 @@ export const CreateTransactionModal = ({open, onClose}: any) => {
                     //@ts-ignore
                     setDueDate(newValue?.format("DD/MM/YYYY"));
                   }}
-                  renderInput={(params) => <TextField required {...params} />}
+                  renderInput={(params) => <TextField required {...params} id='dueDate' />}
                   mask="__/__/____"
                   inputFormat="DD/MM/YYYY"
                 />

@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { NumericFormat } from "react-number-format";
 
 import styles from "./TransactionBox.module.scss";
@@ -18,8 +17,9 @@ export const TransactionBox = ({ transaction }: {transaction: Transaction }) => 
       <div
         className={styles.box}
         onClick={handleClickOpen}
+        data-testid="transactionBox"
       >
-        <div className={styles.firstRow}>
+        <div className={styles.firstRow} data-testid="transactionTitle">
           {transaction.name}
           <NumericFormat
             className={

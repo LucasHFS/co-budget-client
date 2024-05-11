@@ -1,0 +1,154 @@
+{
+  "transactions": [
+    {
+        "id": 154,
+        "name": "Academia",
+        "price": 200,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 6,
+        "name": "Agua",
+        "price": 220,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 178,
+        "name": "Aluguel + Dizimo",
+        "price": 1000,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 226,
+        "name": "Coisas p/ casa",
+        "price": 200,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 372,
+        "name": "Emy",
+        "price": 500,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 251,
+        "name": "Energia",
+        "price": 100,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 30,
+        "name": "Gasolina",
+        "price": 400,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 54,
+        "name": "Gasto Mensal",
+        "price": 800,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 78,
+        "name": "Gasto Semanal",
+        "price": 600,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 276,
+        "name": "Internet",
+        "price": 100,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 126,
+        "name": "Remedios",
+        "price": 75,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 102,
+        "name": "Reserva de Emergencia",
+        "price": 1000,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "expense"
+    },
+    {
+        "id": 324,
+        "name": "Salario",
+        "price": 5000,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "income"
+    },
+    {
+        "id": 348,
+        "name": "Vale Alimentacao",
+        "price": 840,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-01",
+        "budgetId": 1,
+        "transactionType": "income"
+    },
+    {
+        "id": 202,
+        "name": "Claro Flex",
+        "price": 30,
+        "kind": "fixed",
+        "status": "criado",
+        "dueAt": "2024-05-23",
+        "budgetId": 1,
+        "transactionType": "expense"
+    }
+  ]
+}
