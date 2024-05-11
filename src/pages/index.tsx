@@ -1,5 +1,5 @@
-import { withSSRAuth } from "@/modules/auth/middlewares/withSSRAuth";
-import { HomePage } from "@/modules/pages/home/HomePage";
+import { withSSRAuth } from "@/concepts/Auth/middlewares/withSSRAuth";
+import { HomePage } from "@/concepts/Transaction/views/home/HomePage";
 
 const Page = () => {
   return <HomePage />;

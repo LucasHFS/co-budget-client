@@ -1,0 +1,12 @@
+{
+  "transactions": {
+      "id": 154,
+      "name": "Academia",
+      "price": 200,
+      "kind": "fixed",
+      "status": "criado",
+      "dueAt": "2024-05-01",
+      "budgetId": 1,
+      "transactionType": "expense"
+  }
+}

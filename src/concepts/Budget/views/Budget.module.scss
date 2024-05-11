@@ -1,0 +1,38 @@
+@import "../../../components/theme/breakpoints.scss";;
+
+.content {
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.container {
+  padding: 12px;
+
+  @include min-desktop {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    width: 80%;
+    max-width: 800px;
+    padding: 12px;
+  }
+}
+
+.floating_button {
+	position:fixed !important;
+	bottom:40px;
+	right:40px;
+}
+
+.form {
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

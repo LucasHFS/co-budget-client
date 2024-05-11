@@ -43,3 +43,7 @@ package-lock.json
 
 # Sentry Config File
 .sentryclirc
+
+# cypress/e2e/1-getting-started
+# cypress/e3e/2-advanced-examples
+screenshots

@@ -1,0 +1,10 @@
+@import "../../../components/theme/breakpoints.scss";;
+
+.active * {
+  color: black;
+  font-weight: bold;
+}
+
+.active {
+  background-color: lightgray;
+}

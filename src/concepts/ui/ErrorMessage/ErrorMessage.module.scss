@@ -1,0 +1,8 @@
+@import "../../../components/theme/breakpoints.scss";;
+
+li.error {
+  color: #be6e6e;
+  list-style-type: none;
+  text-align: center;
+  padding-top: 10px;
+}

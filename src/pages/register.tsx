@@ -1,5 +1,5 @@
-import { withSSRGuest } from "@/modules/auth/middlewares/withSSRGuest";
-import { RegisterPage } from "@/modules/pages/register/RegisterPage";
+import { withSSRGuest } from "@/concepts/Auth/middlewares/withSSRGuest";
+import { RegisterPage } from "@/concepts/Auth/views/Register/RegisterPage";
 import Head from "next/head";
 
 const Page = () => {

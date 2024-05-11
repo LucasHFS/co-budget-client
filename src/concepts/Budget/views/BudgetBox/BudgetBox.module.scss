@@ -1,0 +1,27 @@
+.title {
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+  margin-bottom: 10px;
+}
+.box {
+  padding: 12px 0;
+  background-color: var(--background-floor-1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+// .box:hover {
+//   background-color: #464651;
+//   outline: 1px solid var(--text-secondary);
+// }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editIcon {
+  color: black !important;
+}
