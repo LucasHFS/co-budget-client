@@ -27,9 +27,21 @@ export const useCalculateTotals = ({transactions}: { transactions: Transaction[]
       },0)
     ,[transactions])
 
+    const calculateLastingExpenses = () => {
+      return transactions.reduce((acc, transaction) => {
+          // @ts-ignore
+          if(transaction.transactionType === 'expense' && transaction.status !== 'pago'){
+          // @ts-ignore
+            return acc + transaction.price
+          } else {
+            return acc
+          }
+        },0)
+    }
 
   return {
     calculateTotal,
     calculateBalance,
+    calculateLastingExpenses,
   }
 }

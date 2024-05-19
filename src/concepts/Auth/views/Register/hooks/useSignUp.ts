@@ -19,8 +19,6 @@ export const useSignUp = () => {
         const response = await signUpRequest({ email, username, password })
 
         if (response.status === 200) {
-          toastSuccess("Account Created!");
-
           authenticateUser(response.data.user);
           router.push('/budgets')
         }
