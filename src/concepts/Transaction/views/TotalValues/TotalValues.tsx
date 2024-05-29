@@ -5,11 +5,12 @@ import { Transaction } from "@sentry/nextjs/types/client";
 import { useCalculateTotals } from "./hooks/useCalculateTotals";
 
 export const TotalValues = ({transactions}: { transactions: Transaction[]}) => {
-  const { calculateBalance, calculateTotal } = useCalculateTotals({transactions})
+  const { calculateBalance, calculateTotal, calculateLastingExpenses } = useCalculateTotals({transactions})
   const balance = calculateBalance()
   const grossExpenses = calculateTotal('expense')
   const grossIncomes = calculateTotal('income')
   const expectedBalance = grossIncomes - grossExpenses
+  const lastingExpenses = calculateLastingExpenses()
 
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '30px', justifyContent: 'center'}}>
@@ -54,28 +55,17 @@ export const TotalValues = ({transactions}: { transactions: Transaction[]}) => {
               value={parseFloat(grossExpenses).toFixed(2)}
             />
         </div>
-      </div>
 
-      {/* <div style={{textAlign: 'center', fontWeight: 'bold', display: 'flex', flexDirection: 'column', gap: '5px', margin: '5px 0'}}>
-        <div style={{color: 'lightgreen'}}>
-          <span>Total de receitas: </span>
-          <NumericFormat
-              prefix="R$  "
-              displayType="text"
-              //@ts-ignore
-              value={parseFloat(grossExpenses).toFixed(2)}
-            />
-        </div>
         <div style={{color: 'red'}}>
-          <span>Total de gastos: </span>
+          <span>Gastos Pendentes: </span>
           <NumericFormat
               prefix="R$  "
               displayType="text"
               //@ts-ignore
-              value={parseFloat(grossIncomes).toFixed(2)}
+              value={parseFloat(lastingExpenses).toFixed(2)}
             />
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }
